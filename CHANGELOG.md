@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.2 — 2026-08-07
+
+Bounded authorship-synchronization release for the Journal of Biomedical Informatics submission.
+
+- Standardized the five-author order as Iris Yang, Paul Tan, Jung Chen, Jewel Wang, and Chung-I Huang.
+- Confirmed Jung Chen as the legal publication name and University of Chicago as the affiliation.
+- Retained Iris Yang as first and corresponding author and Chung-I Huang as co-corresponding author.
+- Assigned Jung Chen the same CRediT roles as Paul Tan: Validation; Writing – Review & Editing.
+- Removed the former sixth author and associated affiliation from the current manuscript, editorial documents, repository metadata, and release package.
+- Regenerated the manuscript, editorial documents, QA proof, and submission package without changing scientific results.
+- The version-specific Zenodo DOI will be added after the v1.2.2 archive is published.
+
 ## 1.2.1 — 2026-08-07
 
 Bounded synchronization release for the Journal of Biomedical Informatics submission.
