@@ -10,7 +10,7 @@ Bounded authorship-synchronization release for the Journal of Biomedical Informa
 - Assigned Jung Chen the same CRediT roles as Paul Tan: Validation; Writing – Review & Editing.
 - Removed the former sixth author and associated affiliation from the current manuscript, editorial documents, repository metadata, and release package.
 - Regenerated the manuscript, editorial documents, QA proof, and submission package without changing scientific results.
-- The version-specific Zenodo DOI will be added after the v1.2.2 archive is published.
+- Archived the five-author synchronization release at Zenodo DOI 10.5281/zenodo.21840696.
 
 ## 1.2.1 — 2026-08-07
 
