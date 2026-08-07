@@ -4,6 +4,8 @@
 
 Submission-matched release for the Journal of Biomedical Informatics manuscript.
 
+Zenodo version DOI: https://doi.org/10.5281/zenodo.21834590
+
 - Fixed pROC direction a priori so resampling and permutation analyses cannot select ROC orientation from observed labels.
 - Sorted GEO samples by accession before seeded fold creation, making the release invariant to download order.
 - Prevented integer overflow in Matthews correlation coefficient counts.
