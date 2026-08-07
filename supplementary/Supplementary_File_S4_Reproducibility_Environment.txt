@@ -4,6 +4,7 @@ Companion to "A Reproducible Evidence-Audit Framework for Leakage, Feature Stabi
 
 Submission-aligned release: v1.2.1 (2026-08-07)
 Repository: https://github.com/iry496/leakage-aware-smo-svm-omics
+Zenodo version DOI (v1.2.1): 10.5281/zenodo.21840371
 Zenodo concept DOI: 10.5281/zenodo.21134085
 Previous version DOI (v1.2.0): 10.5281/zenodo.21834590
 Global random seed: 20260620; repeated-CV seeds: 20260620-20260649.

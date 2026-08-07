@@ -11,7 +11,7 @@ This repository contains the submission-aligned analysis code, random seeds, fol
 
 ## Archived release
 
-- Current submission-aligned version: **v1.2.1** (version DOI assigned when the release is archived)
+- Current submission-aligned version DOI (v1.2.1): [10.5281/zenodo.21840371](https://doi.org/10.5281/zenodo.21840371)
 - Previous submission-aligned version DOI (v1.2.0): [10.5281/zenodo.21834590](https://doi.org/10.5281/zenodo.21834590)
 - Prior version DOI (v1.1.0): [10.5281/zenodo.21134086](https://doi.org/10.5281/zenodo.21134086)
 - Concept DOI (all versions): [10.5281/zenodo.21134085](https://doi.org/10.5281/zenodo.21134085)
@@ -105,4 +105,4 @@ This repository is dual-licensed:
 
 ## How to cite
 
-See [`CITATION.cff`](CITATION.cff). Cite v1.2.1 through the Zenodo concept DOI 10.5281/zenodo.21134085 until the version-specific DOI is assigned.
+See [`CITATION.cff`](CITATION.cff). Cite the submission-aligned v1.2.1 archive using DOI [10.5281/zenodo.21840371](https://doi.org/10.5281/zenodo.21840371).

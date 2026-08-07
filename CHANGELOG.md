@@ -9,6 +9,7 @@ Bounded synchronization release for the Journal of Biomedical Informatics submis
 - Added selector-K sensitivity results to Supplementary File S2.
 - Clarified operating-point aggregation, GSE41998 thresholding, supplementary cross-references, archive metadata, and the Hatzis reference.
 - Regenerated the manuscript, QA proof, S5 dashboard, repository metadata, and Drive submission package.
+- Archived the synchronized release at Zenodo DOI 10.5281/zenodo.21840371.
 
 ## 1.2.0 — 2026-08-07
 
