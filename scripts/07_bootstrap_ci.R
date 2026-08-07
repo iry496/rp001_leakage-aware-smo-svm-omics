@@ -63,8 +63,8 @@ pr_auc <- function(truth, prob) {
 op_metrics <- function(truth, pred) {
   sens <- sum(truth == POS & pred == POS) / sum(truth == POS)
   spec <- sum(truth != POS & pred != POS) / sum(truth != POS)
-  tp <- sum(truth == POS & pred == POS); tn <- sum(truth != POS & pred != POS)
-  fp <- sum(truth != POS & pred == POS); fn <- sum(truth == POS & pred != POS)
+  tp <- as.numeric(sum(truth == POS & pred == POS)); tn <- as.numeric(sum(truth != POS & pred != POS))
+  fp <- as.numeric(sum(truth != POS & pred == POS)); fn <- as.numeric(sum(truth == POS & pred != POS))
   den <- sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
   mcc <- if (den == 0) NA_real_ else (tp * tn - fp * fn) / den
   c(balanced_accuracy = mean(c(sens, spec)), mcc = mcc,

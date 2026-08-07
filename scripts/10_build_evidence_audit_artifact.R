@@ -25,7 +25,7 @@ rd <- function(p) utils::read.csv(p, stringsAsFactors = FALSE, check.names = FAL
 bci <- rd("tables/uncertainty/bootstrap_ci.csv")
 dci <- rd("tables/uncertainty/delta_auroc_prauc_ci.csv")
 dlt <- rd("results/uncertainty/delong_tests.csv")
-prm <- rd("results/permutation/permutation_b1000_pvalues.csv")
+prm <- rd("results/permutation/permutation_b1000_fixed_pvalues.csv")
 gpt <- rd("results/repeated_cv/repeated_cv_gap_tests.csv")
 sbs <- rd("tables/repeated_cv/stability_by_seed.csv")
 fss <- rd("tables/pilot_gse25055/feature_stability_summary.csv")
@@ -58,17 +58,17 @@ add("Dataset integrity", "External usable samples", "182 (42 pCR, 140 RD)",
     interpretation = "Same-platform, same-study-family (Hatzis), non-overlapping with discovery.",
     source = "results/external_validation_gse25065/gse25065_external_metrics.csv")
 
-# 2. Leakage sensitivity
+# 2. Naive-versus-guarded workflow sensitivity
 da <- dci[dci$metric == "delta_auroc", ]; dp <- dci[dci$metric == "delta_pr_auc", ]
-add("Leakage sensitivity", "Internal leakage gap, delta AUROC", da$point,
+add("Workflow sensitivity", "Internal whole-workflow contrast, delta AUROC", da$point,
     sprintf("[%s, %s]", da$ci_lo, da$ci_hi), da$boot_p, "0",
-    "Positive but modest; 95% CI includes zero in this single cohort.",
+    "Descriptive whole-workflow contrast; arms also differ in tuning and resampling.",
     "tables/uncertainty/delta_auroc_prauc_ci.csv")
-add("Leakage sensitivity", "Internal leakage gap, delta PR-AUC", dp$point,
+add("Workflow sensitivity", "Internal whole-workflow contrast, delta PR-AUC", dp$point,
     sprintf("[%s, %s]", dp$ci_lo, dp$ci_hi), dp$boot_p, "0",
-    "Positive but modest; 95% CI includes zero.",
+    "Descriptive whole-workflow contrast; not an isolated leakage-effect estimate.",
     "tables/uncertainty/delta_auroc_prauc_ci.csv")
-add("Leakage sensitivity", "DeLong per-repeat p (secondary)",
+add("Workflow sensitivity", "DeLong per-repeat p (secondary)",
     sprintf("%.3f-%.3f", min(dlt$delong_p), max(dlt$delong_p)), "",
     sprintf("median %.3f", median(dlt$delong_p)), "",
     "Secondary sensitivity check; not the primary inference.",
@@ -91,17 +91,17 @@ add("Permutation control", "Leaky null AUROC (mean)", pa$null_mean,
     sprintf("[%s, %s]", pa$`null_p2.5`, pa$`null_p97.5`),
     sprintf("p(obs>=null)=%s", pa$p_obs_ge_null), "chance 0.5",
     "Leaky pipeline scores far above chance on shuffled labels (diagnostic of leakage artifact).",
-    "results/permutation/permutation_b1000_pvalues.csv")
+    "results/permutation/permutation_b1000_fixed_pvalues.csv")
 add("Permutation control", "Guarded null AUROC (mean)", pg$null_mean,
     sprintf("[%s, %s]", pg$`null_p2.5`, pg$`null_p97.5`),
     sprintf("obs p=%s", pg$p_obs_ge_null), "chance 0.5",
     "Guarded null near chance; real-label guarded exceeds its null (p=0.001).",
-    "results/permutation/permutation_b1000_pvalues.csv")
+    "results/permutation/permutation_b1000_fixed_pvalues.csv")
 add("Permutation control", "Guarded null PR-AUC (mean)", pgp$null_mean,
     sprintf("[%s, %s]", pgp$`null_p2.5`, pgp$`null_p97.5`),
     sprintf("obs p=%s", pgp$p_obs_ge_null), "prevalence 0.186",
     "Guarded PR-AUC null centers on prevalence (well-calibrated).",
-    "results/permutation/permutation_b1000_pvalues.csv")
+    "results/permutation/permutation_b1000_fixed_pvalues.csv")
 
 # 5. Repeated-CV robustness
 ga <- grow("delta_auroc"); gp <- grow("delta_pr_auc")
@@ -142,8 +142,8 @@ add("Feature stability", "Nogueira median (30 seeds)",
 add("External transportability", "External AUROC (GSE25065)", sprintf("%.4f", ext$auroc),
     sprintf("[%s, %s]", bget("B_guarded_nested_external","auroc","ci_lo"),
                         bget("B_guarded_nested_external","auroc","ci_hi")),
-    "", "discovery guarded 0.7265",
-    "Transportability drop (~ -0.119 AUROC); a generalization limit, distinct from leakage.",
+    "", "discovery guarded 0.7032",
+    "Transportability drop (~ -0.140 AUROC); a generalization limit, distinct from leakage.",
     "results/external_validation_gse25065/gse25065_external_metrics.csv")
 add("External transportability", "External PR-AUC (GSE25065)", sprintf("%.4f", ext$pr_auc),
     "", "", "prevalence 0.231",
@@ -165,7 +165,7 @@ add("Class imbalance", "Guarded discovery sensitivity (pCR)",
 
 # 9. Reproducibility status
 add("Reproducibility status", "Analysis scripts",
-    "07_bootstrap_ci.R; 08_permutation_control.R; 09_repeated_nested_cv.R", "", "", "",
+    "07_bootstrap_ci.R; 08_permutation_control.R; 09_repeated_nested_cv.R; 15_external_validation_gse41998_bootstrap.R", "", "", "",
     "All analyses regenerate from committed code, seeds, and outputs.", "scripts/")
 add("Reproducibility status", "Committed outputs",
     "tables/uncertainty/; results/permutation/; tables/repeated_cv/; results/repeated_cv/",
@@ -173,12 +173,12 @@ add("Reproducibility status", "Committed outputs",
 
 # 10. Limitations / unresolved risks
 add("Limitations / unresolved risks", "Statistical resolution",
-    "Single-cohort leakage gap CI includes zero", "", "", "",
-    "Direction reproducible across seeds, but not patient-level significant in one cohort.",
+    "Single-cohort workflow contrast is not a causal leakage estimate", "", "", "",
+    "Matched one-factor ablation is required to estimate the effect of feature-selection placement.",
     "tables/uncertainty/delta_auroc_prauc_ci.csv")
 add("Limitations / unresolved risks", "Generalization",
-    "Same-platform same-study-family external cohort only", "", "", "",
-    "Cross-platform generalization untested; recurrent probes are stability-ranked candidates, not validated markers.",
+    "One same-study-family and one cross-platform external cohort", "", "", "",
+    "Broader generalization remains untested; recurrent probes are audit outputs, not validated markers.",
     "results/external_validation_gse25065/")
 add("Limitations / unresolved risks", "Clinical status", "No clinical biomarker claim",
     "", "", "", "Methodology/audit study; not clinical biomarker discovery.", "manuscript")
@@ -206,7 +206,7 @@ utils::write.csv(schema, "tables/evidence_audit/evidence_audit_schema.csv", row.
 utils::write.csv(final,  "tables/evidence_audit/evidence_audit_final.csv",  row.names = FALSE)
 
 # JSON (nested by domain)
-order <- c("Dataset integrity","Leakage sensitivity","Bootstrap uncertainty",
+order <- c("Dataset integrity","Workflow sensitivity","Bootstrap uncertainty",
            "Permutation control","Repeated-CV robustness","Feature stability",
            "External transportability","Class imbalance","Reproducibility status",
            "Limitations / unresolved risks")

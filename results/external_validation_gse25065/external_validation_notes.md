@@ -32,7 +32,7 @@ loaded for prediction:
 - **SVM cost**: selected by discovery-only 5-fold guarded cross-validation over
   the grid {0.25, 1, 4} (feature selection and scaling re-fit inside each CV
   training split, so the cost choice is not optimistically biased). Selected
-  cost = **0.25** (CV balanced accuracy = 0.577).
+  cost = **4** in the submission-aligned, accession-sorted run.
 - **Scaling parameters**: center/scale fit on the discovery cohort, selected
   features only.
 - **Model**: linear SVM/SMO (`e1071::svm`) with class weights, trained on the
@@ -56,30 +56,30 @@ applied as-is.
 
 | Metric | Value |
 |--------|-------|
-| AUROC | 0.6078 |
-| PR-AUC | 0.3060 |
-| Balanced accuracy | 0.5381 |
-| MCC | 0.1347 |
+| AUROC | 0.5633 |
+| PR-AUC | 0.2986 |
+| Balanced accuracy | 0.5310 |
+| MCC | 0.1013 |
 | Sensitivity (pCR recall) | 0.1190 |
-| Specificity (RD recall) | 0.9571 |
+| Specificity (RD recall) | 0.9429 |
 
 Confusion matrix (rows = truth, cols = predicted):
 
 |        | pred pCR | pred RD |
 |--------|----------|---------|
 | **pCR** | 5 (TP)  | 37 (FN) |
-| **RD**  | 6 (FP)  | 134 (TN)|
+| **RD**  | 8 (FP)  | 132 (TN)|
 
 ## Interpretation
 
-External AUROC (0.608) is below the discovery guarded nested-CV estimate
-(0.726 from the pilot `pilot_performance_comparison.csv`), i.e. performance drops
+External AUROC (0.563) is below the discovery guarded nested-CV estimate
+(0.703 from `results/pilot_gse25055/nested_smo_svm_metrics.csv`), i.e. performance drops
 on a truly independent cohort. The frozen model is strongly biased toward the
-majority class (RD): specificity is high (0.957) while sensitivity for pCR is low
+majority class (RD): specificity is high (0.943) while sensitivity for pCR is low
 (0.119), so it identifies residual disease well but misses most pathologic
 complete responders. The base rate of pCR in GSE25065 (42 / 182 = 23%) bounds
 PR-AUC interpretation; the observed PR-AUC (0.306) is modestly above that base
-rate, indicating weak-but-present pCR signal that transports across cohorts.
+rate, indicating limited discrimination in this same-study-family cohort.
 
 ## Warnings and limitations
 
@@ -90,12 +90,11 @@ rate, indicating weak-but-present pCR signal that transports across cohorts.
   predicts pCR. Threshold re-calibration could trade specificity for sensitivity,
   but any such threshold must be chosen on discovery (or a separate calibration
   set), never on GSE25065, to preserve external validity.
-- **Single external cohort.** Only GSE25065 was used. GSE41998 (cross-platform,
-  GPL571) and the MDACC sensitivity cohorts (GSE20194 / GSE20271) were
-  deliberately excluded here per task scope and the audit's overlap caveats.
+- **External-cohort scope.** GSE25065 is the same-platform, same-study-family audit;
+  GSE41998 is reported separately as a cross-platform sensitivity analysis. The
+  MDACC sensitivity cohorts remain held out because of overlap risk.
 - **Same platform / same study family.** GSE25055 and GSE25065 are from the same
-  authors and platform; transportability to other platforms or populations is
-  not addressed by this analysis.
+  authors and platform; this result alone does not establish broader transportability.
 - **No probe-to-gene collapsing.** Analysis is at the probe level on GPL96; a
   gene-level summarization could change which features transfer.
 - **Class imbalance handled only via SVM class weights**; SMOTE and alternative

@@ -77,12 +77,12 @@ N_FOLDS     <- 5; N_REPEATS <- 5; COST <- 1                     # leaky arm
 OUTER_FOLDS <- 5; INNER_FOLDS <- 5; COST_GRID <- c(0.25, 1, 4)  # guarded arm
 
 # Committed references for the anchor reproduction gate (from Phase 1/2A):
-REF_LEAKY_AUROC   <- 0.7705
-REF_GUARDED_AUROC <- 0.7265
-REF_NOGUEIRA      <- 0.5409
-REF_JACCARD       <- 0.3734
-REF_CORE          <- 28L
-REF_TAIL          <- 102L
+REF_LEAKY_AUROC   <- 0.7830
+REF_GUARDED_AUROC <- 0.7032
+REF_NOGUEIRA      <- 0.5128
+REF_JACCARD       <- 0.3487
+REF_CORE          <- 26L
+REF_TAIL          <- 105L
 
 RESULTS_DIR <- file.path("results", "repeated_cv")
 TABLES_DIR  <- file.path("tables",  "repeated_cv")
@@ -116,6 +116,7 @@ load_gse25055 <- function(accession = ACCESSION, label_field = LABEL_FIELD) {
   labels <- factor(raw_labels[keep], levels = c("RD", "pCR"))
   if (any(is.na(labels))) stop("Unexpected label values after NA exclusion.")
   x <- t(expr[, keep, drop = FALSE]); rownames(x) <- colnames(expr)[keep]
+  ord <- order(rownames(x)); x <- x[ord, , drop = FALSE]; labels <- labels[ord]
   list(x = x, y = labels)
 }
 
@@ -124,7 +125,9 @@ prep_expression <- function(x) filter_near_zero_variance(x, cutoff = 1e-8)$x
 load_or_cache <- function() {
   if (file.exists(CACHE_X) && file.exists(CACHE_Y)) {
     message("[cache] reading processed matrix/labels from rds cache.")
-    return(list(x = readRDS(CACHE_X), y = readRDS(CACHE_Y)))
+    x <- readRDS(CACHE_X); y <- readRDS(CACHE_Y)
+    ord <- order(rownames(x))
+    return(list(x = x[ord, , drop = FALSE], y = y[ord]))
   }
   dat <- load_gse25055(); x <- prep_expression(dat$x); y <- dat$y
   dir.create("processed_data", recursive = TRUE, showWarnings = FALSE)
@@ -415,12 +418,13 @@ gap_tests_notes_lines <- function(gap, tests) {
             ta$V_statistic, ta$p_value, ta$n_positive, ta$n_seeds),
     sprintf("- delta PR-AUC: V = %.0f, p = %.3g; positive in %d/%d seeds.",
             tp$V_statistic, tp$p_value, tp$n_positive, tp$n_seeds),
-    sprintf(paste0("- The leakage gaps are positive in %d/%d seeds and statistically positive ",
-                   "across seeds (Wilcoxon p < 0.001 for both AUROC and PR-AUC), but the ",
+    sprintf(paste0("- The workflow contrasts are positive in %d/%d seeds for AUROC and %d/%d seeds for PR-AUC ",
+                   "(Wilcoxon p = %.3g and %.3g, respectively), but the ",
                    "2.5-97.5%% interval includes small negative values, so claims should remain ",
                    "cautious: this is a within-cohort, methodology/diagnostic finding, not ",
                    "biomarker discovery."),
-            ta$n_positive, ta$n_seeds))
+            ta$n_positive, ta$n_seeds, tp$n_positive, tp$n_seeds,
+            ta$p_value, tp$p_value))
 }
 
 # ---- driver -----------------------------------------------------------------

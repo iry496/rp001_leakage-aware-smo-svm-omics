@@ -1,7 +1,8 @@
 # GSE41998 External-Validation Design Memo
 
-_Design only — no data run, no code change, no manuscript edit. This memo specifies how a
-leakage-safe cross-platform external validation on GSE41998 would be performed **if approved**._
+_Predeclared design memo. The protocol was subsequently implemented in
+`scripts/14_external_validation_gse41998.R` and executed without changing its endpoint mapping,
+feature mapping, scaling hierarchy, or go/no-go safeguards._
 
 Discovery cohort: GSE25055 (Affymetrix HG-U133A, GPL96). Existing same-study-family validation:
 GSE25065 (GPL96). Proposed new external cohort: **GSE41998** (different platform, GPL571 /
@@ -136,4 +137,5 @@ _This memo defines the protocol and its guardrails. The canonical script
 `scripts/14_external_validation_gse41998.R` implements exactly this design (exact probe intersection,
 discovery-frozen model, predeclared label rule, primary discovery-scaling + clearly separated
 unsupervised z-score sensitivity, runtime go/no-go that stops report-only on failure) and writes no
-raw expression. No GSE41998 data have been run; this memo changes no results and makes no claim._
+raw expression. The executed run retained 253 explicit Yes/No cases and excluded 20 literal zeros
+plus 6 missing values; the live GEO Series Matrix verification was repeated on 2026-08-07._

@@ -12,25 +12,26 @@ outputs and recombined.
 - GSE25065 (external): RD=140, pCR=42, 16 NA excluded (N=198); pCR prevalence 23.1%.
 - Same platform (GPL96), non-overlapping by design (GSE25066 split).
 
-## Leakage sensitivity (leaky vs guarded nested, GSE25055)
-- Leaky AUROC 0.7705 vs guarded nested AUROC 0.7265 -> leakage gap +0.0440.
-- Leaky PR-AUC 0.4020 vs guarded nested PR-AUC 0.3656 -> leakage gap +0.0363.
-- The leaky pipeline inflates AUROC and PR-AUC. Guarding selection removes that
-  optimism and, importantly, the guarded nested pipeline IMPROVES the
-  imbalance-aware metrics (balanced accuracy 0.5792, MCC 0.2250) over the leaky
-  baseline (balanced accuracy 0.5546, MCC 0.2063).
+## Workflow sensitivity (naive vs guarded nested, GSE25055)
+- Naive AUROC 0.7830 vs guarded nested AUROC 0.7032 -> whole-workflow contrast +0.0799.
+- Naive PR-AUC 0.4257 vs guarded nested PR-AUC 0.3476 -> whole-workflow contrast +0.0781.
+- The workflows also differ in tuning and resampling, so the contrasts are
+  descriptive and not isolated causal estimates of feature-selection leakage.
+  The guarded nested workflow improves the
+  imbalance-aware metrics (balanced accuracy 0.5724, MCC 0.2138) over the leaky
+  baseline (balanced accuracy 0.5525, MCC 0.1945).
 
 ## Feature stability (5 outer folds, K=100)
-- 222 unique features selected across folds; 28 in all 5 folds (stable core);
-  102 selected in exactly one fold (unstable tail).
-- Mean Jaccard 0.3734, median Jaccard 0.3699, Nogueira stability 0.5409.
+- 229 unique features selected across folds; 26 in all 5 folds (stable core);
+  105 selected in exactly one fold (unstable tail).
+- Mean Jaccard 0.3487, median Jaccard 0.3246, Nogueira stability 0.5128.
 - Interpretation: stability is MODERATE - a small reproducible core coexists
   with a large unstable tail.
 
 ## External validation (GSE25065) and internal->external drop
-- External AUROC 0.6078, PR-AUC 0.3060, balanced accuracy 0.5381, MCC 0.1347, sensitivity 0.1190, specificity 0.9571.
-- Drop from guarded nested CV to external: AUROC +0.1187, PR-AUC +0.0596, balanced accuracy +0.0411,
-  MCC +0.0903, sensitivity +0.0915, specificity -0.0094.
+- External AUROC 0.5633, PR-AUC 0.2986, balanced accuracy 0.5310, MCC 0.1013, sensitivity 0.1190, specificity 0.9429.
+- Drop from guarded nested CV to external: AUROC +0.1399, PR-AUC +0.0491, balanced accuracy +0.0414,
+  MCC +0.1125, sensitivity +0.0739, specificity +0.0090.
 - Interpretation: external validation shows clear TRANSPORTABILITY LIMITS;
   discrimination and minority-class recall fall on the independent cohort,
   while specificity is roughly maintained.
@@ -47,6 +48,6 @@ outputs and recombined.
 - Single same-platform external cohort (GSE25065).
 - GSE41998 (cross-platform) and GSE20194/GSE20271 (overlap/de-dup) deliberately
   excluded pending harmonization and sample-level de-duplication.
-- Feature-tail instability: 102 of 222 features selected only once.
+- Feature-tail instability: 105 of 229 features selected only once.
 - Low pCR sensitivity limits practical utility.
 

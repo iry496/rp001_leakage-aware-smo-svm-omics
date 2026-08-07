@@ -15,8 +15,8 @@
 #   * Leaky arm: global t-test top-K=100 on the FULL data BEFORE CV.
 #   * Guarded arm: t-test top-K=100 inside training folds only.
 #   * Same SVM model, same fold design (stratified, regenerated per permutation),
-#     same metrics. Permutation 0 = identity (must reproduce leaky ~0.7705,
-#     guarded ~0.7265).
+#     same metrics. Permutation 0 = identity (must reproduce naive ~0.7830,
+#     guarded ~0.7032).
 #
 # Phase-2A optimizations (do not change the science):
 #   1. Vectorized Welch t-test selector (USE_FAST_SELECTOR) — same statistic as
@@ -66,8 +66,8 @@ TOP_K       <- 100
 KERNEL      <- "linear"
 N_FOLDS     <- 5; N_REPEATS <- 5; COST <- 1                 # leaky arm
 OUTER_FOLDS <- 5; INNER_FOLDS <- 5; COST_GRID <- c(0.25, 1, 4)  # guarded arm
-REF_LEAKY_AUROC   <- 0.7705
-REF_GUARDED_AUROC <- 0.7265
+REF_LEAKY_AUROC   <- 0.7830
+REF_GUARDED_AUROC <- 0.7032
 PERM_SEED_OFFSET  <- 100000
 
 RESULTS_DIR <- file.path("results", "permutation")
@@ -102,6 +102,7 @@ load_gse25055 <- function(accession = ACCESSION, label_field = LABEL_FIELD) {
   labels <- factor(raw_labels[keep], levels = c("RD", "pCR"))
   if (any(is.na(labels))) stop("Unexpected label values after NA exclusion.")
   x <- t(expr[, keep, drop = FALSE]); rownames(x) <- colnames(expr)[keep]
+  ord <- order(rownames(x)); x <- x[ord, , drop = FALSE]; labels <- labels[ord]
   list(x = x, y = labels)
 }
 
@@ -110,7 +111,9 @@ prep_expression <- function(x) filter_near_zero_variance(x, cutoff = 1e-8)$x
 load_or_cache <- function() {
   if (file.exists(CACHE_X) && file.exists(CACHE_Y)) {
     message("[cache] reading processed matrix/labels from rds cache.")
-    return(list(x = readRDS(CACHE_X), y = readRDS(CACHE_Y)))
+    x <- readRDS(CACHE_X); y <- readRDS(CACHE_Y)
+    ord <- order(rownames(x))
+    return(list(x = x[ord, , drop = FALSE], y = y[ord]))
   }
   dat <- load_gse25055(); x <- prep_expression(dat$x); y <- dat$y
   dir.create("processed_data", recursive = TRUE, showWarnings = FALSE)
@@ -353,7 +356,7 @@ main <- function() {
            fill = c("#E99695", "#C2E0C6"), legend = c("leaky null", "guarded null"))
     legend("top", bty = "n", cex = 0.8, lwd = 2, col = c("red", "darkgreen"),
            legend = c("observed leaky", "observed guarded"))
-    hist(sh$gap_auroc, breaks = 15, col = "#D9E2F3", main = "Null leakage gap (leaky - guarded)", xlab = "delta AUROC")
+    hist(sh$gap_auroc, breaks = 15, col = "#D9E2F3", main = "Null workflow contrast (naive - guarded)", xlab = "delta AUROC")
     abline(v = 0, lty = 3); abline(v = idn$gap_auroc, col = "blue", lwd = 2)
     dev.off()
   }
@@ -379,7 +382,7 @@ main <- function() {
   notes <- c(notes, "", "## Null summary (shuffled labels)",
     sprintf("- leaky AUROC null: mean %.4f (%.4f-%.4f); frac > 0.5 = %.3f.", mean(sh$leaky_auroc), min(sh$leaky_auroc), max(sh$leaky_auroc), mean(sh$leaky_auroc > 0.5)),
     sprintf("- guarded AUROC null: mean %.4f (%.4f-%.4f); frac > 0.5 = %.3f.", mean(sh$guarded_auroc), min(sh$guarded_auroc), max(sh$guarded_auroc), mean(sh$guarded_auroc > 0.5)),
-    sprintf("- leakage gap null: mean %.4f (%.4f-%.4f).", mean(sh$gap_auroc), min(sh$gap_auroc), max(sh$gap_auroc)),
+    sprintf("- naive-minus-guarded null contrast: mean %.4f (%.4f-%.4f).", mean(sh$gap_auroc), min(sh$gap_auroc), max(sh$gap_auroc)),
     "", "## Runtime",
     sprintf("- mean compute %.1f s/perm; wall %.1f s/perm with %d workers; total %.1f min.", mean_compute, wall_per_perm, N_WORKERS, total_wall / 60),
     sprintf("- old (serial, original selector) was %.1f s/perm.", OLD_PER_PERM),

@@ -94,6 +94,10 @@ load_gse <- function(accession, label_field = LABEL_FIELD) {
   x <- t(expr[, keep, drop = FALSE])
   ids <- colnames(expr)[keep]
   rownames(x) <- ids
+  ord <- order(ids)
+  x <- x[ord, , drop = FALSE]
+  labels <- labels[ord]
+  ids <- ids[ord]
   list(x = x, y = labels, ids = ids)
 }
 

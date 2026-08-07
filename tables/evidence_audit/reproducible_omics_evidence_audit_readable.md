@@ -11,45 +11,45 @@ is extracted from previously committed stage outputs. This is a
 | Dataset integrity | GSE25065 usable samples (external) | RD=140, pCR=42; 16 NA excluded (N=198) | Verified from sample metadata; independent validation cohort. | Table 1 / cohort description |
 | Dataset integrity | Platform & endpoint harmonization | Both GPL96; label pathologic_response_pcr_rd (pCR vs RD) | Same platform enables direct probe transfer with no remapping. | Methods: cohorts & endpoint |
 | Dataset integrity | Discovery/validation overlap | Non-overlapping by design (GSE25066 split) | No patient-level leakage between discovery and external cohorts. | Methods: external-validation design |
-| Leakage sensitivity | Leaky baseline AUROC | 0.7705 | Global feature selection before CV inflates discrimination. | Leakage demonstration |
-| Leakage sensitivity | Leaky baseline PR-AUC | 0.4020 | Leaky precision-recall also optimistic. | Leakage demonstration |
-| Leakage sensitivity | Leakage gap AUROC (leaky - guarded) | +0.0440 | Optimistic AUROC bias removed once selection is guarded. | Key leakage-quantification result |
-| Leakage sensitivity | Leakage gap PR-AUC (leaky - guarded) | +0.0363 | Optimistic PR-AUC bias removed once selection is guarded. | Key leakage-quantification result |
-| Guarded nested performance | AUROC | 0.7265 | Honest internal discrimination (nested CV). | Primary internal result |
-| Guarded nested performance | PR-AUC | 0.3656 | Honest internal precision-recall on imbalanced pCR. | Primary internal result |
-| Guarded nested performance | Balanced accuracy | 0.5792 | Imbalance-aware accuracy improves vs leaky pipeline. | Imbalance-aware result |
-| Guarded nested performance | MCC | 0.2250 | Imbalance-aware agreement improves vs leaky pipeline. | Imbalance-aware result |
-| Guarded nested performance | Sensitivity (pCR) | 0.2105 | Minority-class recall still limited. | Imbalance discussion |
-| Guarded nested performance | Specificity (RD) | 0.9478 | Majority-class recall high. | Imbalance discussion |
-| Feature stability | Total unique selected features (5 folds, K=100) | 222 | Union far exceeds per-fold K=100, signalling churn. | Stability result |
-| Feature stability | Selected in all 5 folds (stable core) | 28 | Small reproducible core of features. | Stable-core result |
-| Feature stability | Selected in exactly 1 fold (unstable tail) | 102 | Large unstable tail selected only once. | Instability caveat |
-| Feature stability | Mean pairwise Jaccard | 0.3734 | Moderate overlap between fold-wise feature sets. | Stability result |
-| Feature stability | Median pairwise Jaccard | 0.3699 | Consistent with mean; moderate overlap. | Stability result |
-| Feature stability | Nogueira stability index | 0.5409 | Moderate stability: stable core with unstable tail. | Stability headline |
-| External validation | AUROC (GSE25065) | 0.6078 | Lower than internal nested CV; transportability limited. | External result |
-| External validation | PR-AUC (GSE25065) | 0.3060 | Weak-but-present pCR signal above base rate. | External result |
-| External validation | Balanced accuracy (GSE25065) | 0.5381 | Near chance once externalized. | External result |
-| External validation | MCC (GSE25065) | 0.1347 | Weak agreement on independent cohort. | External result |
+| Workflow sensitivity | Naive baseline AUROC | 0.7830 | Naive global-selection workflow estimate; not an unbiased generalization estimate. | Workflow comparison |
+| Workflow sensitivity | Naive baseline PR-AUC | 0.4257 | Naive global-selection workflow estimate under class imbalance. | Workflow comparison |
+| Workflow sensitivity | Workflow contrast AUROC (naive - guarded) | +0.0799 | Descriptive contrast between workflows that also differ in tuning and resampling. | Whole-workflow comparison |
+| Workflow sensitivity | Workflow contrast PR-AUC (naive - guarded) | +0.0781 | Descriptive contrast; not the isolated causal effect of feature-selection placement. | Whole-workflow comparison |
+| Guarded nested performance | AUROC | 0.7032 | Honest internal discrimination (nested CV). | Primary internal result |
+| Guarded nested performance | PR-AUC | 0.3476 | Honest internal precision-recall on imbalanced pCR. | Primary internal result |
+| Guarded nested performance | Balanced accuracy | 0.5724 | Imbalance-aware accuracy improves vs leaky pipeline. | Imbalance-aware result |
+| Guarded nested performance | MCC | 0.2138 | Imbalance-aware agreement improves vs leaky pipeline. | Imbalance-aware result |
+| Guarded nested performance | Sensitivity (pCR) | 0.1930 | Minority-class recall still limited. | Imbalance discussion |
+| Guarded nested performance | Specificity (RD) | 0.9518 | Majority-class recall high. | Imbalance discussion |
+| Feature stability | Total unique selected features (5 folds, K=100) | 229 | Union far exceeds per-fold K=100, signalling churn. | Stability result |
+| Feature stability | Selected in all 5 folds (stable core) | 26 | Small reproducible core of features. | Stable-core result |
+| Feature stability | Selected in exactly 1 fold (unstable tail) | 105 | Large unstable tail selected only once. | Instability caveat |
+| Feature stability | Mean pairwise Jaccard | 0.3487 | Moderate overlap between fold-wise feature sets. | Stability result |
+| Feature stability | Median pairwise Jaccard | 0.3246 | Consistent with mean; moderate overlap. | Stability result |
+| Feature stability | Nogueira stability index | 0.5128 | Moderate stability: stable core with unstable tail. | Stability headline |
+| External validation | AUROC (GSE25065) | 0.5633 | Lower than internal nested CV; transportability limited. | External result |
+| External validation | PR-AUC (GSE25065) | 0.2986 | Weak-but-present pCR signal above base rate. | External result |
+| External validation | Balanced accuracy (GSE25065) | 0.5310 | Near chance once externalized. | External result |
+| External validation | MCC (GSE25065) | 0.1013 | Weak agreement on independent cohort. | External result |
 | External validation | Sensitivity (pCR, GSE25065) | 0.1190 | Most pathologic responders missed externally. | External / imbalance discussion |
-| External validation | Specificity (RD, GSE25065) | 0.9571 | Residual disease still well identified. | External / imbalance discussion |
-| External validation | Drop AUROC (nested -> external) | +0.1187 | Quantifies transportability gap to an independent cohort. | Key transportability result |
-| External validation | Drop PR-AUC (nested -> external) | +0.0596 | Precision-recall declines externally. | Transportability result |
-| External validation | Drop balanced accuracy (nested -> external) | +0.0411 | Imbalance-aware accuracy declines externally. | Transportability result |
-| External validation | Drop MCC (nested -> external) | +0.0903 | Agreement declines externally. | Transportability result |
-| External validation | Drop sensitivity (nested -> external) | +0.0915 | pCR recall degrades further externally. | Transportability / imbalance result |
-| External validation | Drop specificity (nested -> external) | -0.0094 | Specificity roughly maintained (slightly higher externally). | Transportability result |
+| External validation | Specificity (RD, GSE25065) | 0.9429 | Residual disease still well identified. | External / imbalance discussion |
+| External validation | Drop AUROC (nested -> external) | +0.1399 | Quantifies transportability gap to an independent cohort. | Key transportability result |
+| External validation | Drop PR-AUC (nested -> external) | +0.0491 | Precision-recall declines externally. | Transportability result |
+| External validation | Drop balanced accuracy (nested -> external) | +0.0414 | Imbalance-aware accuracy declines externally. | Transportability result |
+| External validation | Drop MCC (nested -> external) | +0.1125 | Agreement declines externally. | Transportability result |
+| External validation | Drop sensitivity (nested -> external) | +0.0739 | pCR recall degrades further externally. | Transportability / imbalance result |
+| External validation | Drop specificity (nested -> external) | +0.0090 | Specificity roughly maintained (slightly higher externally). | Transportability result |
 | Class-imbalance behavior | pCR prevalence (discovery / external) | 18.6% / 23.1% | Minority pCR class in both cohorts. | Imbalance framing |
-| Class-imbalance behavior | Sensitivity vs specificity (nested) | 0.2105 vs 0.9478 | Majority-class (RD) bias persists despite class weights. | Imbalance discussion |
-| Class-imbalance behavior | Sensitivity vs specificity (external) | 0.1190 vs 0.9571 | pCR recall degrades further on the external cohort. | Imbalance discussion |
+| Class-imbalance behavior | Sensitivity vs specificity (nested) | 0.1930 vs 0.9518 | Majority-class (RD) bias persists despite class weights. | Imbalance discussion |
+| Class-imbalance behavior | Sensitivity vs specificity (external) | 0.1190 vs 0.9429 | pCR recall degrades further on the external cohort. | Imbalance discussion |
 | Class-imbalance behavior | Imbalance handling | SVM class weights (no SMOTE) | Weighting alone does not resolve low pCR recall. | Methods: imbalance strategy |
 | Reproducibility status | Random seed | SEED = 20260620 | Single global seed across pipelines. | Reproducibility statement |
-| Reproducibility status | Determinism | Fixed CV folds + deterministic t-test top-K selection | Re-running reproduces folds, features, and metrics. | Reproducibility statement |
+| Reproducibility status | Determinism | Samples sorted by GEO accession ID before seeded folds; deterministic t-test top-K selection | Canonical ordering makes seeded fold assignments reproducible across fresh downloads. | Reproducibility statement |
 | Reproducibility status | Committed artifacts | Per-stage metrics, predictions, selected features, notes | Full provenance from raw load to external metrics. | Data/code availability |
 | Reproducibility status | Raw-data policy | GEO series-matrix via GEOquery; no raw CEL committed | Lightweight, license-respecting reproducibility. | Data availability |
 | Limitations / unresolved risks | Clinical claim | None - methodology/audit only | Not a validated clinical biomarker; no discovery claim. | Limitations |
-| Limitations / unresolved risks | External breadth | Single same-platform cohort (GSE25065) | Cross-platform/population transport not yet addressed. | Limitations |
-| Limitations / unresolved risks | Pending cohorts | GSE41998 (cross-platform); GSE20194/GSE20271 (de-dup needed) | Held out pending harmonization/overlap resolution. | Future work |
-| Limitations / unresolved risks | Feature-tail instability | 102 of 222 features selected once | Only a small core is reproducible across folds. | Limitations |
+| Limitations / unresolved risks | External breadth | One same-study-family cohort and one cross-platform cohort | Broader population and platform transportability remains untested. | Limitations |
+| Limitations / unresolved risks | Pending cohorts | GSE20194/GSE20271 (patient-overlap risk) | Held out pending deduplication and overlap resolution. | Future work |
+| Limitations / unresolved risks | Feature-tail instability | 105 of 229 features selected once | Only a small core is reproducible across folds. | Limitations |
 | Limitations / unresolved risks | pCR detection | Low sensitivity internally and externally | Limited utility for identifying responders. | Limitations |
 

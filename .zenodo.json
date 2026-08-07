@@ -2,8 +2,8 @@
   "title": "A Reproducible Evidence-Audit Framework for Leakage, Feature Stability, and Transportability in Translational Omics Classification",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "description": "A reproducible evidence-audit framework for data leakage, feature-selection stability, and external-cohort transportability in high-dimensional translational omics classification, using a leakage-aware SMO-trained linear SVM workflow on public breast-cancer neoadjuvant-chemotherapy cohorts (pCR vs. residual disease). Cohorts: GSE25055 (discovery/internal validation), GSE25065 (same-platform same-study-family validation), and GSE41998 (cross-platform transportability sensitivity).",
-  "version": "1.1.0",
+  "description": "Submission-aligned code, outputs, figures, supplements, and manuscript for a reproducible evidence-audit framework in high-dimensional translational omics classification. A naive global-selection workflow is contrasted descriptively with a guarded nested workflow; because the arms also differ in tuning and resampling, the contrast is not presented as an isolated causal leakage estimate. Public breast-cancer neoadjuvant-chemotherapy cohorts are used as a stress test: GSE25055 (discovery/internal validation), GSE25065 (same-platform same-study-family validation), and GSE41998 (cross-platform transportability sensitivity).",
+  "version": "1.2.0",
   "language": "eng",
   "access_right": "open",
   "license": "cc-by-4.0",
@@ -18,10 +18,11 @@
     "reproducibility"
   ],
   "creators": [
-    { "name": "Yang, Iris", "affiliation": "California State University, Los Angeles, USA; Purdue University, USA" },
-    { "name": "Wong, Wing-Keung", "affiliation": "Asia University, Taiwan" },
-    { "name": "Tan, Paul", "affiliation": "Harvard University Extension School, USA" },
-    { "name": "Huang, Chung-I", "affiliation": "National Chung Hsing University, Taiwan" },
-    { "name": "Wang, Jewel", "affiliation": "Brandeis University, USA" }
+    { "name": "Yang, Iris", "affiliation": "California State University, Los Angeles, CA, USA; Purdue University, West Lafayette, IN, USA" },
+    { "name": "Huang, Chung-I", "affiliation": "Department of Management Information Systems, National Chung Hsing University, Taichung, Taiwan" },
+    { "name": "Tan, Paul", "affiliation": "Harvard Extension School, Harvard University, Cambridge, MA, USA" },
+    { "name": "Wang, Jewel", "affiliation": "Brandeis University, Waltham, MA, USA" },
+    { "name": "Chen, Jung", "affiliation": "University of Chicago, Chicago, IL, USA" },
+    { "name": "Wong, Wing-Keung", "affiliation": "Department of Finance, Asia University, Taichung, Taiwan" }
   ]
 }

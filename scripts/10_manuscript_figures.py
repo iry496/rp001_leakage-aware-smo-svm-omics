@@ -27,7 +27,7 @@ os.makedirs(OUT, exist_ok=True)
 
 # ---------------------------------------------------------------- Figure 1
 def workflow_schematic():
-    fig, ax = plt.subplots(figsize=(9, 6.2))
+    fig, ax = plt.subplots(figsize=(11.6, 6.2))
     ax.set_xlim(0, 10); ax.set_ylim(0, 10); ax.axis("off")
 
     def box(x, y, w, h, text, fc, ec="#333333", fs=8.5):
@@ -39,8 +39,8 @@ def workflow_schematic():
         ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle="-|>",
                                      mutation_scale=14, lw=1.4, color=color))
 
-    ax.text(2.5, 9.6, "Leaky (global) pipeline", ha="center", fontsize=12, fontweight="bold", color="#B03030")
-    ax.text(7.5, 9.6, "Guarded (nested) pipeline", ha="center", fontsize=12, fontweight="bold", color="#1E7A3C")
+    ax.text(2.5, 9.6, "Naive (global-selection) workflow", ha="center", fontsize=12, fontweight="bold", color="#B03030")
+    ax.text(7.5, 9.6, "Guarded (nested) workflow", ha="center", fontsize=12, fontweight="bold", color="#1E7A3C")
 
     # Leaky column
     box(0.6, 8.3, 3.8, 0.9, "Full dataset (all samples + labels)", "#F2F2F2")
@@ -60,8 +60,8 @@ def workflow_schematic():
     ax.text(9.55, 5.75, "FS isolated\nfrom test\nfold", ha="left", va="center",
             fontsize=8, color="#1E7A3C", fontweight="bold")
 
-    ax.text(5.0, 2.6, "Both pipelines use the same linear SMO/SVM, top-K = 100 features, and cost grid; they differ only\n"
-                      "in WHERE feature selection occurs relative to the validation split.",
+    ax.text(5.0, 2.6, "Both workflows use the same linear SVM and top-K = 100 selector. They also differ in cost policy\n"
+                          "and resampling, so this is a descriptive comparison rather than a matched one-factor ablation.",
             ha="center", va="center", fontsize=8.5, style="italic")
     plt.tight_layout()
     fig.savefig(f"{OUT}/fig_workflow_schematic.png", dpi=200, bbox_inches="tight")
@@ -109,10 +109,10 @@ def feature_frequency():
     bars = ax.bar([str(x) for x in xs], ys, color=colors, edgecolor="#333333", lw=0.8)
     for b,v in zip(bars,ys):
         ax.text(b.get_x()+b.get_width()/2, v+1.5, str(v), ha="center", fontsize=9.5, fontweight="bold")
-    ax.annotate("unstable tail\n(102 probes in 1 fold)", xy=(0,102), xytext=(0.6,86),
+    ax.annotate(f"unstable tail\n({ys[0]} probes in 1 fold)", xy=(0, ys[0]), xytext=(0.6,86),
                 fontsize=8.5, color="#B03030",
                 arrowprops=dict(arrowstyle="->", color="#B03030"))
-    ax.annotate("stable core\n(28 probes in all 5 folds)", xy=(4,28), xytext=(2.7,55),
+    ax.annotate(f"stable core\n({ys[4]} probes in all 5 folds)", xy=(4, ys[4]), xytext=(2.7,55),
                 fontsize=8.5, color="#1E7A3C",
                 arrowprops=dict(arrowstyle="->", color="#1E7A3C"))
     ax.set_xlabel("Number of outer folds selecting a feature (of 5)", fontsize=10)

@@ -72,18 +72,17 @@ knitr::kable(
 
 - **AUROC and operating-point metrics reproduce the manuscript exactly**;
   PR-AUC matches `PRROC::pr.curve(...)$auc.integral` to ~0.001–0.002.
-- **The leakage gap is positive but not statistically significant in this single
-  cohort.** ΔAUROC = +0.044 with a 95% CI that crosses zero
-  (`r sprintf("[%.4f, %.4f]", delta$ci_lo[delta$metric=="delta_auroc"], delta$ci_hi[delta$metric=="delta_auroc"])`,
-  bootstrap p ≈ `r delta$boot_p[delta$metric=="delta_auroc"]`); ΔPR-AUC similarly
-  non-significant. DeLong per-repeat p-values are all > 0.06 (median
-  `r sprintf("%.4f", median(delong$delong_p))`).
+- **The naive-minus-guarded whole-workflow contrast is positive for AUROC and
+  uncertain for PR-AUC.** Values are read directly from the regenerated table:
+  ΔAUROC = `r delta$point[delta$metric=="delta_auroc"]`
+  (`r sprintf("[%.4f, %.4f]", delta$ci_lo[delta$metric=="delta_auroc"], delta$ci_hi[delta$metric=="delta_auroc"])`;
+  bootstrap p = `r delta$boot_p[delta$metric=="delta_auroc"]`) and ΔPR-AUC =
+  `r delta$point[delta$metric=="delta_pr_auc"]`
+  (`r sprintf("[%.4f, %.4f]", delta$ci_lo[delta$metric=="delta_pr_auc"], delta$ci_hi[delta$metric=="delta_pr_auc"])`).
 - All confidence intervals are **wide**, driven by the small pCR minority
   (57 of 306 internally; 42 of 182 externally).
 
-**Implication for `manuscript/claim-calibration`.** The direction of inflation is
-consistent with the audit thesis, but the cohort is underpowered to declare the
-gap significant. The manuscript should report the gap **with its CI** and avoid
-implying an established difference. Strengthening the leakage claim requires the
-repeated-nested-CV and permutation-control analyses (Phase 2). This is a
-**methodology / audit** result, not a clinical biomarker claim.
+**Interpretation.** The two arms also differ in tuning and resampling, so the
+contrast is descriptive and does not isolate the causal effect of supervised
+feature-selection placement. This is a **methodology / audit** result, not a
+clinical biomarker claim.

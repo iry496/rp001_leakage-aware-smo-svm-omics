@@ -9,294 +9,348 @@
     {
       "domain": "Dataset integrity",
       "entries": [
-        {
-          "metric": "Discovery usable samples",
-          "value": "306 (57 pCR, 249 RD)",
-          "interval": "",
-          "p_value": "",
-          "reference": "prevalence 0.186",
-          "interpretation": "Labeled, same-platform (GPL96) discovery cohort.",
-          "source": "results/pilot_gse25055/"
-        },
-        {
-          "metric": "External usable samples",
-          "value": "182 (42 pCR, 140 RD)",
-          "interval": "",
-          "p_value": "",
-          "reference": "prevalence 0.231",
-          "interpretation": "Same-platform, same-study-family (Hatzis), non-overlapping with discovery.",
-          "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
-        }
+        [
+          {
+            "metric": "Discovery usable samples",
+            "value": "306 (57 pCR, 249 RD)",
+            "interval": "",
+            "p_value": "",
+            "reference": "prevalence 0.186",
+            "interpretation": "Labeled, same-platform (GPL96) discovery cohort.",
+            "source": "results/pilot_gse25055/"
+          }
+        ],
+        [
+          {
+            "metric": "External usable samples",
+            "value": "182 (42 pCR, 140 RD)",
+            "interval": "",
+            "p_value": "",
+            "reference": "prevalence 0.231",
+            "interpretation": "Same-platform, same-study-family (Hatzis), non-overlapping with discovery.",
+            "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
+          }
+        ]
       ]
     },
     {
-      "domain": "Leakage sensitivity",
+      "domain": "Workflow sensitivity",
       "entries": [
-        {
-          "metric": "Internal leakage gap, delta AUROC",
-          "value": "0.044",
-          "interval": "[-0.0125, 0.1028]",
-          "p_value": "0.125",
-          "reference": "0",
-          "interpretation": "Positive but modest; 95% CI includes zero in this single cohort.",
-          "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
-        },
-        {
-          "metric": "Internal leakage gap, delta PR-AUC",
-          "value": "0.0362",
-          "interval": "[-0.0483, 0.1247]",
-          "p_value": "0.383",
-          "reference": "0",
-          "interpretation": "Positive but modest; 95% CI includes zero.",
-          "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
-        },
-        {
-          "metric": "DeLong per-repeat p (secondary)",
-          "value": "0.067-0.513",
-          "interval": "",
-          "p_value": "median 0.175",
-          "reference": "",
-          "interpretation": "Secondary sensitivity check; not the primary inference.",
-          "source": "results/uncertainty/delong_tests.csv"
-        }
+        [
+          {
+            "metric": "Internal whole-workflow contrast, delta AUROC",
+            "value": "0.0799",
+            "interval": "[0.0103, 0.1552]",
+            "p_value": "0.028",
+            "reference": "0",
+            "interpretation": "Descriptive whole-workflow contrast; arms also differ in tuning and resampling.",
+            "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Internal whole-workflow contrast, delta PR-AUC",
+            "value": "0.0789",
+            "interval": "[-0.0426, 0.1778]",
+            "p_value": "0.191",
+            "reference": "0",
+            "interpretation": "Descriptive whole-workflow contrast; not an isolated leakage-effect estimate.",
+            "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
+          }
+        ],
+        [
+          {
+            "metric": "DeLong per-repeat p (secondary)",
+            "value": "0.020-0.117",
+            "interval": "",
+            "p_value": "median 0.034",
+            "reference": "",
+            "interpretation": "Secondary sensitivity check; not the primary inference.",
+            "source": "results/uncertainty/delong_tests.csv"
+          }
+        ]
       ]
     },
     {
       "domain": "Bootstrap uncertainty",
       "entries": [
-        {
-          "metric": "Leaky AUROC",
-          "value": "0.7705",
-          "interval": "[0.7106, 0.8242]",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "95% stratified percentile bootstrap (B=2000).",
-          "source": "tables/uncertainty/bootstrap_ci.csv"
-        },
-        {
-          "metric": "Guarded AUROC",
-          "value": "0.7265",
-          "interval": "[0.6532, 0.791]",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "95% stratified percentile bootstrap (B=2000).",
-          "source": "tables/uncertainty/bootstrap_ci.csv"
-        },
-        {
-          "metric": "Leaky PR-AUC",
-          "value": "0.4016",
-          "interval": "[0.3329, 0.4969]",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "95% stratified percentile bootstrap (B=2000).",
-          "source": "tables/uncertainty/bootstrap_ci.csv"
-        },
-        {
-          "metric": "Guarded PR-AUC",
-          "value": "0.3653",
-          "interval": "[0.281, 0.4715]",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "95% stratified percentile bootstrap (B=2000).",
-          "source": "tables/uncertainty/bootstrap_ci.csv"
-        }
+        [
+          {
+            "metric": "Leaky AUROC",
+            "value": "0.783",
+            "interval": "[0.727, 0.834]",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "95% stratified percentile bootstrap (B=2000).",
+            "source": "tables/uncertainty/bootstrap_ci.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Guarded AUROC",
+            "value": "0.7032",
+            "interval": "[0.6258, 0.7752]",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "95% stratified percentile bootstrap (B=2000).",
+            "source": "tables/uncertainty/bootstrap_ci.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Leaky PR-AUC",
+            "value": "0.4252",
+            "interval": "[0.3489, 0.5204]",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "95% stratified percentile bootstrap (B=2000).",
+            "source": "tables/uncertainty/bootstrap_ci.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Guarded PR-AUC",
+            "value": "0.3463",
+            "interval": "[0.2654, 0.469]",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "95% stratified percentile bootstrap (B=2000).",
+            "source": "tables/uncertainty/bootstrap_ci.csv"
+          }
+        ]
       ]
     },
     {
       "domain": "Permutation control",
       "entries": [
-        {
-          "metric": "Leaky null AUROC (mean)",
-          "value": "0.8783",
-          "interval": "[0.7613, 0.9564]",
-          "p_value": "p(obs>=null)=0.967",
-          "reference": "chance 0.5",
-          "interpretation": "Leaky pipeline scores far above chance on shuffled labels (diagnostic of leakage artifact).",
-          "source": "results/permutation/permutation_b1000_pvalues.csv"
-        },
-        {
-          "metric": "Guarded null AUROC (mean)",
-          "value": "0.5401",
-          "interval": "[0.4783, 0.6185]",
-          "p_value": "obs p=0.001",
-          "reference": "chance 0.5",
-          "interpretation": "Guarded null near chance; real-label guarded exceeds its null (p=0.001).",
-          "source": "results/permutation/permutation_b1000_pvalues.csv"
-        },
-        {
-          "metric": "Guarded null PR-AUC (mean)",
-          "value": "0.1917",
-          "interval": "[0.1465, 0.2605]",
-          "p_value": "obs p=0.001",
-          "reference": "prevalence 0.186",
-          "interpretation": "Guarded PR-AUC null centers on prevalence (well-calibrated).",
-          "source": "results/permutation/permutation_b1000_pvalues.csv"
-        }
+        [
+          {
+            "metric": "Leaky null AUROC (mean)",
+            "value": "0.8778",
+            "interval": "[0.7566, 0.9575]",
+            "p_value": "p(obs>=null)=0.951",
+            "reference": "chance 0.5",
+            "interpretation": "Leaky pipeline scores far above chance on shuffled labels (diagnostic of leakage artifact).",
+            "source": "results/permutation/permutation_b1000_fixed_pvalues.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Guarded null AUROC (mean)",
+            "value": "0.4917",
+            "interval": "[0.3902, 0.5836]",
+            "p_value": "obs p=0.001",
+            "reference": "chance 0.5",
+            "interpretation": "Guarded null near chance; real-label guarded exceeds its null (p=0.001).",
+            "source": "results/permutation/permutation_b1000_fixed_pvalues.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Guarded null PR-AUC (mean)",
+            "value": "0.1898",
+            "interval": "[0.1465, 0.2622]",
+            "p_value": "obs p=0.001",
+            "reference": "prevalence 0.186",
+            "interpretation": "Guarded PR-AUC null centers on prevalence (well-calibrated).",
+            "source": "results/permutation/permutation_b1000_fixed_pvalues.csv"
+          }
+        ]
       ]
     },
     {
       "domain": "Repeated-CV robustness",
       "entries": [
-        {
-          "metric": "delta AUROC across 30 seeds",
-          "value": "0.0536",
-          "interval": "[-0.0069, 0.1075]",
-          "p_value": "Wilcoxon V=456, p=4.50221e-06",
-          "reference": "positive in 27/30",
-          "interpretation": "Modest but reproducible across fold randomizations (not patient-level inference).",
-          "source": "results/repeated_cv/repeated_cv_gap_tests.csv"
-        },
-        {
-          "metric": "delta PR-AUC across 30 seeds",
-          "value": "0.0569",
-          "interval": "[-0.0235, 0.1389]",
-          "p_value": "Wilcoxon V=445, p=1.29773e-05",
-          "reference": "positive in 27/30",
-          "interpretation": "Modest but reproducible across fold randomizations.",
-          "source": "results/repeated_cv/repeated_cv_gap_tests.csv"
-        }
+        [
+          {
+            "metric": "delta AUROC across 30 seeds",
+            "value": "0.0397",
+            "interval": "[-0.011, 0.0918]",
+            "p_value": "Wilcoxon V=458, p=3.69434e-06",
+            "reference": "positive in 28/30",
+            "interpretation": "Modest but reproducible across fold randomizations (not patient-level inference).",
+            "source": "results/repeated_cv/repeated_cv_gap_tests.csv"
+          }
+        ],
+        [
+          {
+            "metric": "delta PR-AUC across 30 seeds",
+            "value": "0.0473",
+            "interval": "[-0.0559, 0.0957]",
+            "p_value": "Wilcoxon V=390, p=0.00124124",
+            "reference": "positive in 22/30",
+            "interpretation": "Modest but reproducible across fold randomizations.",
+            "source": "results/repeated_cv/repeated_cv_gap_tests.csv"
+          }
+        ]
       ]
     },
     {
       "domain": "Feature stability",
       "entries": [
-        {
-          "metric": "Nogueira index (single split)",
-          "value": "0.5409",
-          "interval": "",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Moderate stability of the selection procedure.",
-          "source": "tables/pilot_gse25055/feature_stability_summary.csv"
-        },
-        {
-          "metric": "Mean Jaccard (single split)",
-          "value": "0.3734",
-          "interval": "",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Moderate fold-to-fold overlap.",
-          "source": "tables/pilot_gse25055/feature_stability_summary.csv"
-        },
-        {
-          "metric": "Stable core / unstable tail",
-          "value": "28 / 102",
-          "interval": "",
-          "p_value": "",
-          "reference": "of 222 unique",
-          "interpretation": "Small reproducible core; large unstable tail.",
-          "source": "tables/pilot_gse25055/feature_stability_summary.csv"
-        },
-        {
-          "metric": "Nogueira median (30 seeds)",
-          "value": "0.5500",
-          "interval": "core 23-35, tail 75-123 (range)",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Stability reproducible across seeds.",
-          "source": "tables/repeated_cv/stability_by_seed.csv"
-        }
+        [
+          {
+            "metric": "Nogueira index (single split)",
+            "value": "0.5128",
+            "interval": "",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Moderate stability of the selection procedure.",
+            "source": "tables/pilot_gse25055/feature_stability_summary.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Mean Jaccard (single split)",
+            "value": "0.3487",
+            "interval": "",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Moderate fold-to-fold overlap.",
+            "source": "tables/pilot_gse25055/feature_stability_summary.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Stable core / unstable tail",
+            "value": "26 / 105",
+            "interval": "",
+            "p_value": "",
+            "reference": "of 229 unique",
+            "interpretation": "Small reproducible core; large unstable tail.",
+            "source": "tables/pilot_gse25055/feature_stability_summary.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Nogueira median (30 seeds)",
+            "value": "0.5435",
+            "interval": "core 17-35, tail 87-133 (range)",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Stability reproducible across seeds.",
+            "source": "tables/repeated_cv/stability_by_seed.csv"
+          }
+        ]
       ]
     },
     {
       "domain": "External transportability",
       "entries": [
-        {
-          "metric": "External AUROC (GSE25065)",
-          "value": "0.6078",
-          "interval": "[0.5061, 0.7]",
-          "p_value": "",
-          "reference": "discovery guarded 0.7265",
-          "interpretation": "Transportability drop (~ -0.119 AUROC); a generalization limit, distinct from leakage.",
-          "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
-        },
-        {
-          "metric": "External PR-AUC (GSE25065)",
-          "value": "0.3060",
-          "interval": "",
-          "p_value": "",
-          "reference": "prevalence 0.231",
-          "interpretation": "Reduced minority-class ranking on the independent cohort.",
-          "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
-        }
+        [
+          {
+            "metric": "External AUROC (GSE25065)",
+            "value": "0.5633",
+            "interval": "[0.4551, 0.6641]",
+            "p_value": "",
+            "reference": "discovery guarded 0.7032",
+            "interpretation": "Transportability drop (~ -0.140 AUROC); a generalization limit, distinct from leakage.",
+            "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
+          }
+        ],
+        [
+          {
+            "metric": "External PR-AUC (GSE25065)",
+            "value": "0.2986",
+            "interval": "",
+            "p_value": "",
+            "reference": "prevalence 0.231",
+            "interpretation": "Reduced minority-class ranking on the independent cohort.",
+            "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
+          }
+        ]
       ]
     },
     {
       "domain": "Class imbalance",
       "entries": [
-        {
-          "metric": "External sensitivity / specificity",
-          "value": "0.1190 / 0.9571",
-          "interval": "",
-          "p_value": "",
-          "reference": "TP=5, FP=6, TN=134, FN=37",
-          "interpretation": "High specificity but low pCR sensitivity under class imbalance.",
-          "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
-        },
-        {
-          "metric": "Guarded discovery sensitivity (pCR)",
-          "value": "0.2105",
-          "interval": "[0.1053, 0.3158]",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Minority-class recall remains low internally.",
-          "source": "tables/uncertainty/bootstrap_ci.csv"
-        }
+        [
+          {
+            "metric": "External sensitivity / specificity",
+            "value": "0.1190 / 0.9429",
+            "interval": "",
+            "p_value": "",
+            "reference": "TP=5, FP=8, TN=132, FN=37",
+            "interpretation": "High specificity but low pCR sensitivity under class imbalance.",
+            "source": "results/external_validation_gse25065/gse25065_external_metrics.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Guarded discovery sensitivity (pCR)",
+            "value": "0.193",
+            "interval": "[0.1053, 0.2982]",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Minority-class recall remains low internally.",
+            "source": "tables/uncertainty/bootstrap_ci.csv"
+          }
+        ]
       ]
     },
     {
       "domain": "Reproducibility status",
       "entries": [
-        {
-          "metric": "Analysis scripts",
-          "value": "07_bootstrap_ci.R; 08_permutation_control.R; 09_repeated_nested_cv.R",
-          "interval": "",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "All analyses regenerate from committed code, seeds, and outputs.",
-          "source": "scripts/"
-        },
-        {
-          "metric": "Committed outputs",
-          "value": "tables/uncertainty/, results/permutation/, tables/repeated_cv/, results/repeated_cv/",
-          "interval": "",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Pipeline is reproducible from repository artifacts.",
-          "source": "repository"
-        }
+        [
+          {
+            "metric": "Analysis scripts",
+            "value": "07_bootstrap_ci.R; 08_permutation_control.R; 09_repeated_nested_cv.R; 15_external_validation_gse41998_bootstrap.R",
+            "interval": "",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "All analyses regenerate from committed code, seeds, and outputs.",
+            "source": "scripts/"
+          }
+        ],
+        [
+          {
+            "metric": "Committed outputs",
+            "value": "tables/uncertainty/; results/permutation/; tables/repeated_cv/; results/repeated_cv/",
+            "interval": "",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Pipeline is reproducible from repository artifacts.",
+            "source": "repository"
+          }
+        ]
       ]
     },
     {
       "domain": "Limitations / unresolved risks",
       "entries": [
-        {
-          "metric": "Statistical resolution",
-          "value": "Single-cohort leakage gap CI includes zero",
-          "interval": "",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Direction reproducible across seeds, but not patient-level significant in one cohort.",
-          "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
-        },
-        {
-          "metric": "Generalization",
-          "value": "Same-platform same-study-family external cohort only",
-          "interval": "",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Cross-platform generalization untested; recurrent probes are stability-ranked candidates, not validated markers.",
-          "source": "results/external_validation_gse25065/"
-        },
-        {
-          "metric": "Clinical status",
-          "value": "No clinical biomarker claim",
-          "interval": "",
-          "p_value": "",
-          "reference": "",
-          "interpretation": "Methodology/audit study; not clinical biomarker discovery.",
-          "source": "manuscript"
-        }
+        [
+          {
+            "metric": "Statistical resolution",
+            "value": "Single-cohort workflow contrast is not a causal leakage estimate",
+            "interval": "",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Matched one-factor ablation is required to estimate the effect of feature-selection placement.",
+            "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
+          }
+        ],
+        [
+          {
+            "metric": "Generalization",
+            "value": "One same-study-family and one cross-platform external cohort",
+            "interval": "",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Broader generalization remains untested; recurrent probes are audit outputs, not validated markers.",
+            "source": "results/external_validation_gse25065/"
+          }
+        ],
+        [
+          {
+            "metric": "Clinical status",
+            "value": "No clinical biomarker claim",
+            "interval": "",
+            "p_value": "",
+            "reference": "",
+            "interpretation": "Methodology/audit study; not clinical biomarker discovery.",
+            "source": "manuscript"
+          }
+        ]
       ]
     }
   ]

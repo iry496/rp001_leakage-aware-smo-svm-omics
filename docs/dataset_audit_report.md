@@ -12,7 +12,7 @@ GSE25065 (external validation 1): platform GPL96, total N = 198. Label field `pa
 
 GSE20194 (sensitivity; demoted from validation): platform GPL96, total N = 278. Label field `pcr_vs_rd`: pCR = 56, RD = 222, all samples labeled. Status: verified from sample metadata. Source: Shi et al., Nat Biotechnol 2010 / Popovici et al., Breast Cancer Res 2010.
 
-GSE41998 (external validation 2): platform GPL571 (HG-U133A 2.0), total N = 279. Label field `pcr`: pCR (Yes) = 69, RD (No) = 184, used as the binary labels on 253 evaluable cases. A further 20 samples coded "0" and 6 with the field missing (26 total) are treated as not-evaluable / unresolved and excluded from the counts. Status: partially verified (see label-resolution note below). Source: Horak et al., Clin Cancer Res 2013 (PMID 23340299).
+GSE41998 (external validation 2): platform GPL571 (HG-U133A 2.0), total N = 279. Label field `pcr`: pCR (Yes) = 69, RD (No) = 184, used as the binary labels on 253 evaluable cases. A further 20 samples coded "0" and 6 with the field missing (26 total) are excluded from the binary endpoint. Status: verified exclusion rule from the live GEO Series Matrix on 2026-08-07; the exact clinical definition of the depositor's "0" code is not documented. Source: Horak et al., Clin Cancer Res 2013 (PMID 23340299).
 
 GSE20271 (optional sensitivity): platform GPL96, total N = 178. Label field `pcr or rd`: pCR = 26, RD = 152, all samples labeled. Status: verified from sample metadata. Source: Tabchy et al., Clin Cancer Res 2010 (PMID 20829329).
 
@@ -20,9 +20,9 @@ GSE20271 (optional sensitivity): platform GPL96, total N = 178. Label field `pcr
 
 All five cohorts report a binary pathologic-complete-response versus residual-disease endpoint, so harmonization is feasible in principle. However the label is stored under a different field name in every cohort (`pathologic_response_pcr_rd`, `pcr_vs_rd`, `pcr or rd`, `pcr`), and value encodings differ (pCR/RD/NA versus Yes/No versus Yes/No/0). A single harmonization mapping must be defined and applied per cohort before any modeling.
 
-## Open issue 1: GSE41998 pCR label ambiguity (partially resolved)
+## GSE41998 pCR coding verification
 
-The `pcr` field in GSE41998 takes values Yes, No, and "0", plus some samples missing the field. The explicit Yes (69) and No (184) cases are now used as confident pCR and RD labels respectively. The 20 "0" and 6 missing cases remain unresolved and are excluded from the counts pending human verification of the depositor's coding key. See the label-resolution note below for the supporting analysis.
+The live GSE41998 Series Matrix was re-read through GEOquery on 2026-08-07. The `pcr` field contains Yes (69), No (184), literal "0" (20), and missing (6). The explicit Yes and No cases are used as pCR and RD respectively. All 20 zeros remain zeros in the parallel `pcrrcb1` field, confirming that they are a distinct third category rather than a numeric recoding of No. The 20 zeros and 6 missing cases are therefore excluded from the binary endpoint. The exact clinical meaning of "0" remains undocumented in GEO and the accessible publication record.
 
 ## Open issue 2: MDACC FNA overlap risk
 
@@ -40,9 +40,9 @@ Distribution across the 279 samples: pcr = Yes 69, No 184, "0" 20, missing 6.
 
 Cross-tabulation findings. The `pcr` field and the parallel `pcrrcb1` field agree exactly on Yes (69-69) and on "0" (20-20); they differ only within the No group, where pcrrcb1 reclassifies 17 of the 184 No cases as RCB-I responders (pcrrcb1 is the broader pCR-or-RCB-I endpoint). The "0" value is therefore a distinct third category, not a numeric 0/1 recoding of No. By treatment arm, the "0" cases span all arms (6 ixabepilone, 6 paclitaxel, 8 non-randomized "none"), and the 6 missing-pcr cases are all in the non-randomized "none" arm. The separate `ac response` field (clinical response to AC induction: complete/partial/stable/progressive/unable-to-determine) is an independent axis: "0" pcr cases include 4 complete, 12 partial, 2 stable, 1 progressive, and 1 unable-to-determine AC responses, so "0" does not map onto any single clinical-response category. (This corrects the earlier v1 note, which conflated AC-phase clinical response with pathologic pCR.)
 
-Interpretation. The most plausible reading is that "0" denotes a sample that is not evaluable for pathologic complete response (e.g., no definitive pCR assessment), because (a) it is a separate code from the explicit No, (b) it tracks identically in both pcr and pcrrcb1, and (c) it co-occurs with non-randomized and unable-to-determine cases. However, neither the GEO series record (no value-definition or data-dictionary field; the only supplementary file is GSE41998_RAW.tar, which was not downloaded) nor the publication abstract states the meaning of "0" explicitly, and the trial methods/supplement defining it could not be accessed.
+Interpretation. The data establish that "0" is not equivalent to the explicit No category: it is preserved separately in both `pcr` and `pcrrcb1` and occurs across treatment arms and AC-response categories. The conservative and reproducible analysis rule is therefore to exclude "0" from the pCR-versus-RD endpoint rather than infer a clinical label. Neither the GEO series record nor the accessible publication record provides a coding key that defines the clinical meaning of "0".
 
-Decision. pCR_N = 69 and RD_N = 184 are recorded confidently from the explicit Yes/No labels (253 evaluable cases). The 20 "0" and 6 missing cases (26 total) are left as unresolved and excluded from the binary counts rather than guessed as pCR or RD. Count_status for GSE41998 is set to "partially verified". Full confident resolution of the 26 cases requires a human to confirm the depositor's coding of "0" against the trial's clinical annotation.
+Decision. pCR_N = 69 and RD_N = 184 are recorded from the explicit Yes/No labels (253 evaluable cases). The 20 "0" and 6 missing cases (26 total) are excluded from the binary counts. Count_status for GSE41998 is "verified exclusion rule; exact zero-code meaning undocumented." This uncertainty does not affect the analyzed 253 explicit Yes/No cases.
 
 ## Cohort-role recommendation
 

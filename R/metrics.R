@@ -3,10 +3,10 @@
 mcc_binary <- function(truth, estimate, positive) {
   truth <- factor(truth)
   estimate <- factor(estimate, levels = levels(truth))
-  tp <- sum(truth == positive & estimate == positive)
-  tn <- sum(truth != positive & estimate != positive)
-  fp <- sum(truth != positive & estimate == positive)
-  fn <- sum(truth == positive & estimate != positive)
+  tp <- as.numeric(sum(truth == positive & estimate == positive))
+  tn <- as.numeric(sum(truth != positive & estimate != positive))
+  fp <- as.numeric(sum(truth != positive & estimate == positive))
+  fn <- as.numeric(sum(truth == positive & estimate != positive))
   denom <- sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
   if (denom == 0) return(NA_real_)
   (tp * tn - fp * fn) / denom
@@ -29,7 +29,20 @@ compute_binary_metrics <- function(truth, estimate, probability = NULL, positive
   )
   if (!is.null(probability)) {
     if (requireNamespace("pROC", quietly = TRUE)) {
-      out$auroc <- as.numeric(pROC::auc(pROC::roc(response = truth, predictor = probability, levels = rev(levels(factor(truth))), quiet = TRUE)))
+      # Fix ROC orientation a priori. pROC's automatic direction selection uses
+      # the observed data and can bias AUC upward in resampling/permutation
+      # analyses. Probability is the model's score for `positive`, so the
+      # negative class is the control level and increasing scores indicate the
+      # positive class.
+      negative <- setdiff(levels(factor(truth)), positive)
+      if (length(negative) != 1L) stop("Binary AUROC requires exactly one negative class.")
+      out$auroc <- as.numeric(pROC::auc(pROC::roc(
+        response = truth,
+        predictor = probability,
+        levels = c(negative, positive),
+        direction = "<",
+        quiet = TRUE
+      )))
     } else {
       out$auroc <- NA_real_
     }

@@ -56,7 +56,9 @@ stop_report_only <- function(reason, extra=list()) {
 load_discovery <- function() {
   if (file.exists(DISC_CACHE_X) && file.exists(DISC_CACHE_Y)) {
     message("[cache] reading GSE25055 discovery matrix/labels from rds cache.")
-    return(list(x=readRDS(DISC_CACHE_X), y=readRDS(DISC_CACHE_Y)))
+    x <- readRDS(DISC_CACHE_X); y <- readRDS(DISC_CACHE_Y)
+    ord <- order(rownames(x))
+    return(list(x=x[ord, , drop=FALSE], y=y[ord]))
   }
   if (!requireNamespace("GEOquery", quietly=TRUE)) stop("GEOquery required.")
   g <- GEOquery::getGEO(DISC, GSEMatrix=TRUE, getGPL=FALSE)[[1]]
@@ -65,6 +67,7 @@ load_discovery <- function() {
   raw <- trimws(sub(paste0("^.*",LABEL_FIELD,"\\s*[:=]?\\s*"),"",as.character(ph[[lc]]),ignore.case=TRUE))
   keep <- !(is.na(raw)|raw %in% c("NA","na","N/A","","NaN")); y <- factor(raw[keep], levels=c("RD","pCR"))
   x <- t(expr[,keep,drop=FALSE]); rownames(x) <- colnames(expr)[keep]
+  ord <- order(rownames(x)); x <- x[ord, , drop=FALSE]; y <- y[ord]
   x <- filter_near_zero_variance(x, cutoff=1e-8)$x; list(x=x, y=y)
 }
 
@@ -183,7 +186,10 @@ main <- function() {
   write.csv(summ, file.path(TAB, "gse41998_summary.csv"), row.names=FALSE)
 
   # ---- transportability figure (discovery guarded CV vs GSE25065 vs GSE41998) ----
-  disc_auroc <- 0.7265; disc_pr <- 0.3653; g65_auroc <- 0.6078; g65_pr <- 0.3060   # committed references
+  disc_metrics <- read.csv("results/pilot_gse25055/nested_smo_svm_metrics.csv", stringsAsFactors=FALSE)
+  g65_metrics <- read.csv("results/external_validation_gse25065/gse25065_external_metrics.csv", stringsAsFactors=FALSE)
+  disc_auroc <- disc_metrics$auroc[1]; disc_pr <- disc_metrics$pr_auc[1]
+  g65_auroc <- g65_metrics$auroc[1]; g65_pr <- g65_metrics$pr_auc[1]
   M <- rbind(AUROC = c(disc_auroc, g65_auroc, res_p$metrics["auroc"]),
              `PR-AUC` = c(disc_pr, g65_pr, res_p$metrics["pr_auc"]))
   for (dev_fun in list(function() png(file.path(FIG,"gse41998_transportability.png"), width=900, height=520),

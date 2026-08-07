@@ -1,28 +1,28 @@
-domain,metric,value,interval,p_value,reference,interpretation,source
-Dataset integrity,Discovery usable samples,"306 (57 pCR, 249 RD)",,,prevalence 0.186,"Labeled, same-platform (GPL96) discovery cohort.",results/pilot_gse25055/
-Dataset integrity,External usable samples,"182 (42 pCR, 140 RD)",,,prevalence 0.231,"Same-platform, same-study-family (Hatzis), non-overlapping with discovery.",results/external_validation_gse25065/gse25065_external_metrics.csv
-Leakage sensitivity,"Internal leakage gap, delta AUROC",0.044,"[-0.0125, 0.1028]",0.125,0,Positive but modest; 95% CI includes zero in this single cohort.,tables/uncertainty/delta_auroc_prauc_ci.csv
-Leakage sensitivity,"Internal leakage gap, delta PR-AUC",0.0362,"[-0.0483, 0.1247]",0.383,0,Positive but modest; 95% CI includes zero.,tables/uncertainty/delta_auroc_prauc_ci.csv
-Leakage sensitivity,DeLong per-repeat p (secondary),0.067-0.513,,median 0.175,,Secondary sensitivity check; not the primary inference.,results/uncertainty/delong_tests.csv
-Bootstrap uncertainty,Leaky AUROC,0.7705,"[0.7106, 0.8242]",,,95% stratified percentile bootstrap (B=2000).,tables/uncertainty/bootstrap_ci.csv
-Bootstrap uncertainty,Guarded AUROC,0.7265,"[0.6532, 0.791]",,,95% stratified percentile bootstrap (B=2000).,tables/uncertainty/bootstrap_ci.csv
-Bootstrap uncertainty,Leaky PR-AUC,0.4016,"[0.3329, 0.4969]",,,95% stratified percentile bootstrap (B=2000).,tables/uncertainty/bootstrap_ci.csv
-Bootstrap uncertainty,Guarded PR-AUC,0.3653,"[0.281, 0.4715]",,,95% stratified percentile bootstrap (B=2000).,tables/uncertainty/bootstrap_ci.csv
-Permutation control,Leaky null AUROC (mean),0.8783,"[0.7613, 0.9564]",p(obs>=null)=0.967,chance 0.5,Leaky pipeline scores far above chance on shuffled labels (diagnostic of leakage artifact).,results/permutation/permutation_b1000_pvalues.csv
-Permutation control,Guarded null AUROC (mean),0.5401,"[0.4783, 0.6185]",obs p=0.001,chance 0.5,Guarded null near chance; real-label guarded exceeds its null (p=0.001).,results/permutation/permutation_b1000_pvalues.csv
-Permutation control,Guarded null PR-AUC (mean),0.1917,"[0.1465, 0.2605]",obs p=0.001,prevalence 0.186,Guarded PR-AUC null centers on prevalence (well-calibrated).,results/permutation/permutation_b1000_pvalues.csv
-Repeated-CV robustness,delta AUROC across 30 seeds,0.0536,"[-0.0069, 0.1075]","Wilcoxon V=456, p=4.50221e-06",positive in 27/30,Modest but reproducible across fold randomizations (not patient-level inference).,results/repeated_cv/repeated_cv_gap_tests.csv
-Repeated-CV robustness,delta PR-AUC across 30 seeds,0.0569,"[-0.0235, 0.1389]","Wilcoxon V=445, p=1.29773e-05",positive in 27/30,Modest but reproducible across fold randomizations.,results/repeated_cv/repeated_cv_gap_tests.csv
-Feature stability,Nogueira index (single split),0.5409,,,,Moderate stability of the selection procedure.,tables/pilot_gse25055/feature_stability_summary.csv
-Feature stability,Mean Jaccard (single split),0.3734,,,,Moderate fold-to-fold overlap.,tables/pilot_gse25055/feature_stability_summary.csv
-Feature stability,Stable core / unstable tail,28 / 102,,,of 222 unique,Small reproducible core; large unstable tail.,tables/pilot_gse25055/feature_stability_summary.csv
-Feature stability,Nogueira median (30 seeds),0.5500,"core 23-35, tail 75-123 (range)",,,Stability reproducible across seeds.,tables/repeated_cv/stability_by_seed.csv
-External transportability,External AUROC (GSE25065),0.6078,"[0.5061, 0.7]",,discovery guarded 0.7265,"Transportability drop (~ -0.119 AUROC); a generalization limit, distinct from leakage.",results/external_validation_gse25065/gse25065_external_metrics.csv
-External transportability,External PR-AUC (GSE25065),0.3060,,,prevalence 0.231,Reduced minority-class ranking on the independent cohort.,results/external_validation_gse25065/gse25065_external_metrics.csv
-Class imbalance,External sensitivity / specificity,0.1190 / 0.9571,,,"TP=5, FP=6, TN=134, FN=37",High specificity but low pCR sensitivity under class imbalance.,results/external_validation_gse25065/gse25065_external_metrics.csv
-Class imbalance,Guarded discovery sensitivity (pCR),0.2105,"[0.1053, 0.3158]",,,Minority-class recall remains low internally.,tables/uncertainty/bootstrap_ci.csv
-Reproducibility status,Analysis scripts,07_bootstrap_ci.R; 08_permutation_control.R; 09_repeated_nested_cv.R,,,,"All analyses regenerate from committed code, seeds, and outputs.",scripts/
-Reproducibility status,Committed outputs,"tables/uncertainty/, results/permutation/, tables/repeated_cv/, results/repeated_cv/",,,,Pipeline is reproducible from repository artifacts.,repository
-Limitations / unresolved risks,Statistical resolution,Single-cohort leakage gap CI includes zero,,,,"Direction reproducible across seeds, but not patient-level significant in one cohort.",tables/uncertainty/delta_auroc_prauc_ci.csv
-Limitations / unresolved risks,Generalization,Same-platform same-study-family external cohort only,,,,"Cross-platform generalization untested; recurrent probes are stability-ranked candidates, not validated markers.",results/external_validation_gse25065/
-Limitations / unresolved risks,Clinical status,No clinical biomarker claim,,,,Methodology/audit study; not clinical biomarker discovery.,manuscript
+"domain","metric","value","interval","p_value","reference","interpretation","source"
+"Dataset integrity","Discovery usable samples","306 (57 pCR, 249 RD)","","","prevalence 0.186","Labeled, same-platform (GPL96) discovery cohort.","results/pilot_gse25055/"
+"Dataset integrity","External usable samples","182 (42 pCR, 140 RD)","","","prevalence 0.231","Same-platform, same-study-family (Hatzis), non-overlapping with discovery.","results/external_validation_gse25065/gse25065_external_metrics.csv"
+"Workflow sensitivity","Internal whole-workflow contrast, delta AUROC","0.0799","[0.0103, 0.1552]","0.028","0","Descriptive whole-workflow contrast; arms also differ in tuning and resampling.","tables/uncertainty/delta_auroc_prauc_ci.csv"
+"Workflow sensitivity","Internal whole-workflow contrast, delta PR-AUC","0.0789","[-0.0426, 0.1778]","0.191","0","Descriptive whole-workflow contrast; not an isolated leakage-effect estimate.","tables/uncertainty/delta_auroc_prauc_ci.csv"
+"Workflow sensitivity","DeLong per-repeat p (secondary)","0.020-0.117","","median 0.034","","Secondary sensitivity check; not the primary inference.","results/uncertainty/delong_tests.csv"
+"Bootstrap uncertainty","Leaky AUROC","0.783","[0.727, 0.834]","","","95% stratified percentile bootstrap (B=2000).","tables/uncertainty/bootstrap_ci.csv"
+"Bootstrap uncertainty","Guarded AUROC","0.7032","[0.6258, 0.7752]","","","95% stratified percentile bootstrap (B=2000).","tables/uncertainty/bootstrap_ci.csv"
+"Bootstrap uncertainty","Leaky PR-AUC","0.4252","[0.3489, 0.5204]","","","95% stratified percentile bootstrap (B=2000).","tables/uncertainty/bootstrap_ci.csv"
+"Bootstrap uncertainty","Guarded PR-AUC","0.3463","[0.2654, 0.469]","","","95% stratified percentile bootstrap (B=2000).","tables/uncertainty/bootstrap_ci.csv"
+"Permutation control","Leaky null AUROC (mean)","0.8778","[0.7566, 0.9575]","p(obs>=null)=0.951","chance 0.5","Leaky pipeline scores far above chance on shuffled labels (diagnostic of leakage artifact).","results/permutation/permutation_b1000_fixed_pvalues.csv"
+"Permutation control","Guarded null AUROC (mean)","0.4917","[0.3902, 0.5836]","obs p=0.001","chance 0.5","Guarded null near chance; real-label guarded exceeds its null (p=0.001).","results/permutation/permutation_b1000_fixed_pvalues.csv"
+"Permutation control","Guarded null PR-AUC (mean)","0.1898","[0.1465, 0.2622]","obs p=0.001","prevalence 0.186","Guarded PR-AUC null centers on prevalence (well-calibrated).","results/permutation/permutation_b1000_fixed_pvalues.csv"
+"Repeated-CV robustness","delta AUROC across 30 seeds","0.0397","[-0.011, 0.0918]","Wilcoxon V=458, p=3.69434e-06","positive in 28/30","Modest but reproducible across fold randomizations (not patient-level inference).","results/repeated_cv/repeated_cv_gap_tests.csv"
+"Repeated-CV robustness","delta PR-AUC across 30 seeds","0.0473","[-0.0559, 0.0957]","Wilcoxon V=390, p=0.00124124","positive in 22/30","Modest but reproducible across fold randomizations.","results/repeated_cv/repeated_cv_gap_tests.csv"
+"Feature stability","Nogueira index (single split)","0.5128","","","","Moderate stability of the selection procedure.","tables/pilot_gse25055/feature_stability_summary.csv"
+"Feature stability","Mean Jaccard (single split)","0.3487","","","","Moderate fold-to-fold overlap.","tables/pilot_gse25055/feature_stability_summary.csv"
+"Feature stability","Stable core / unstable tail","26 / 105","","","of 229 unique","Small reproducible core; large unstable tail.","tables/pilot_gse25055/feature_stability_summary.csv"
+"Feature stability","Nogueira median (30 seeds)","0.5435","core 17-35, tail 87-133 (range)","","","Stability reproducible across seeds.","tables/repeated_cv/stability_by_seed.csv"
+"External transportability","External AUROC (GSE25065)","0.5633","[0.4551, 0.6641]","","discovery guarded 0.7032","Transportability drop (~ -0.140 AUROC); a generalization limit, distinct from leakage.","results/external_validation_gse25065/gse25065_external_metrics.csv"
+"External transportability","External PR-AUC (GSE25065)","0.2986","","","prevalence 0.231","Reduced minority-class ranking on the independent cohort.","results/external_validation_gse25065/gse25065_external_metrics.csv"
+"Class imbalance","External sensitivity / specificity","0.1190 / 0.9429","","","TP=5, FP=8, TN=132, FN=37","High specificity but low pCR sensitivity under class imbalance.","results/external_validation_gse25065/gse25065_external_metrics.csv"
+"Class imbalance","Guarded discovery sensitivity (pCR)","0.193","[0.1053, 0.2982]","","","Minority-class recall remains low internally.","tables/uncertainty/bootstrap_ci.csv"
+"Reproducibility status","Analysis scripts","07_bootstrap_ci.R; 08_permutation_control.R; 09_repeated_nested_cv.R; 15_external_validation_gse41998_bootstrap.R","","","","All analyses regenerate from committed code, seeds, and outputs.","scripts/"
+"Reproducibility status","Committed outputs","tables/uncertainty/; results/permutation/; tables/repeated_cv/; results/repeated_cv/","","","","Pipeline is reproducible from repository artifacts.","repository"
+"Limitations / unresolved risks","Statistical resolution","Single-cohort workflow contrast is not a causal leakage estimate","","","","Matched one-factor ablation is required to estimate the effect of feature-selection placement.","tables/uncertainty/delta_auroc_prauc_ci.csv"
+"Limitations / unresolved risks","Generalization","One same-study-family and one cross-platform external cohort","","","","Broader generalization remains untested; recurrent probes are audit outputs, not validated markers.","results/external_validation_gse25065/"
+"Limitations / unresolved risks","Clinical status","No clinical biomarker claim","","","","Methodology/audit study; not clinical biomarker discovery.","manuscript"

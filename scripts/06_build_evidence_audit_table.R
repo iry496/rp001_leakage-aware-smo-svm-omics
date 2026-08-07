@@ -36,8 +36,10 @@ signed4 <- function(x) {
 # ---- Read inputs (read-only; nothing is refit) ------------------------------
 audit_in <- read.csv("tables/table1_dataset_audit_filled.csv",
                      stringsAsFactors = FALSE, check.names = FALSE)
-perf <- read.csv("tables/pilot_gse25055/pilot_performance_comparison.csv",
-                 stringsAsFactors = FALSE)
+leaky <- read.csv("results/pilot_gse25055/leaky_baseline_metrics.csv",
+                  stringsAsFactors = FALSE)
+guarded <- read.csv("results/pilot_gse25055/nested_smo_svm_metrics.csv",
+                    stringsAsFactors = FALSE)
 fs <- read.csv("tables/pilot_gse25055/feature_stability_summary.csv",
                stringsAsFactors = FALSE)
 extm <- read.csv("results/external_validation_gse25065/gse25065_external_metrics.csv",
@@ -52,10 +54,6 @@ usable55 <- d55$pCR_N + d55$RD_N
 usable65 <- d65$pCR_N + d65$RD_N
 prev55 <- d55$pCR_N / usable55
 prev65 <- d65$pCR_N / usable65
-
-# Pilot performance rows
-leaky   <- perf[perf$pipeline == "A_leaky_baseline", ]
-guarded <- perf[perf$pipeline == "B_guarded_nested", ]
 
 # Feature-stability values (metric/value long table; value stored as character)
 fsget <- function(key) fs$value[match(key, fs$metric)]
@@ -75,8 +73,8 @@ ext_sens  <- extm$sensitivity
 ext_spec  <- extm$specificity
 
 # ---- Derived gaps and drops -------------------------------------------------
-gap_auroc <- leaky$auroc  - guarded$auroc           # leakage inflation (AUROC)
-gap_prauc <- leaky$pr_auc - guarded$pr_auc          # leakage inflation (PR-AUC)
+gap_auroc <- leaky$auroc  - guarded$auroc           # whole-workflow contrast (AUROC)
+gap_prauc <- leaky$pr_auc - guarded$pr_auc           # whole-workflow contrast (PR-AUC)
 
 drop_auroc <- guarded$auroc             - ext_auroc # internal->external drop
 drop_prauc <- guarded$pr_auc            - ext_prauc
@@ -116,19 +114,19 @@ add("Dataset integrity", "Discovery/validation overlap",
     "No patient-level leakage between discovery and external cohorts.",
     "Methods: external-validation design")
 
-# 2. Leakage sensitivity
-add("Leakage sensitivity", "Leaky baseline AUROC", f4(leaky$auroc),
-    "Global feature selection before CV inflates discrimination.",
-    "Leakage demonstration")
-add("Leakage sensitivity", "Leaky baseline PR-AUC", f4(leaky$pr_auc),
-    "Leaky precision-recall also optimistic.",
-    "Leakage demonstration")
-add("Leakage sensitivity", "Leakage gap AUROC (leaky - guarded)", signed4(gap_auroc),
-    "Optimistic AUROC bias removed once selection is guarded.",
-    "Key leakage-quantification result")
-add("Leakage sensitivity", "Leakage gap PR-AUC (leaky - guarded)", signed4(gap_prauc),
-    "Optimistic PR-AUC bias removed once selection is guarded.",
-    "Key leakage-quantification result")
+# 2. Naive-versus-guarded workflow sensitivity
+add("Workflow sensitivity", "Naive baseline AUROC", f4(leaky$auroc),
+    "Naive global-selection workflow estimate; not an unbiased generalization estimate.",
+    "Workflow comparison")
+add("Workflow sensitivity", "Naive baseline PR-AUC", f4(leaky$pr_auc),
+    "Naive global-selection workflow estimate under class imbalance.",
+    "Workflow comparison")
+add("Workflow sensitivity", "Workflow contrast AUROC (naive - guarded)", signed4(gap_auroc),
+    "Descriptive contrast between workflows that also differ in tuning and resampling.",
+    "Whole-workflow comparison")
+add("Workflow sensitivity", "Workflow contrast PR-AUC (naive - guarded)", signed4(gap_prauc),
+    "Descriptive contrast; not the isolated causal effect of feature-selection placement.",
+    "Whole-workflow comparison")
 
 # 3. Guarded nested performance
 add("Guarded nested performance", "AUROC", f4(guarded$auroc),
@@ -202,8 +200,8 @@ add("Class-imbalance behavior", "Imbalance handling",
 add("Reproducibility status", "Random seed", "SEED = 20260620",
     "Single global seed across pipelines.", "Reproducibility statement")
 add("Reproducibility status", "Determinism",
-    "Fixed CV folds + deterministic t-test top-K selection",
-    "Re-running reproduces folds, features, and metrics.", "Reproducibility statement")
+    "Samples sorted by GEO accession ID before seeded folds; deterministic t-test top-K selection",
+    "Canonical ordering makes seeded fold assignments reproducible across fresh downloads.", "Reproducibility statement")
 add("Reproducibility status", "Committed artifacts",
     "Per-stage metrics, predictions, selected features, notes",
     "Full provenance from raw load to external metrics.", "Data/code availability")
@@ -216,11 +214,11 @@ add("Limitations / unresolved risks", "Clinical claim",
     "None - methodology/audit only",
     "Not a validated clinical biomarker; no discovery claim.", "Limitations")
 add("Limitations / unresolved risks", "External breadth",
-    "Single same-platform cohort (GSE25065)",
-    "Cross-platform/population transport not yet addressed.", "Limitations")
+    "One same-study-family cohort and one cross-platform cohort",
+    "Broader population and platform transportability remains untested.", "Limitations")
 add("Limitations / unresolved risks", "Pending cohorts",
-    "GSE41998 (cross-platform); GSE20194/GSE20271 (de-dup needed)",
-    "Held out pending harmonization/overlap resolution.", "Future work")
+    "GSE20194/GSE20271 (patient-overlap risk)",
+    "Held out pending deduplication and overlap resolution.", "Future work")
 add("Limitations / unresolved risks", "Feature-tail instability",
     sprintf("%d of %d features selected once", fs_one, fs_total),
     "Only a small core is reproducible across folds.", "Limitations")
@@ -273,13 +271,14 @@ notes <- c(
           d65$RD_N, d65$pCR_N, na65, d65$Total_N, f1pct(prev65)),
   "- Same platform (GPL96), non-overlapping by design (GSE25066 split).",
   "",
-  "## Leakage sensitivity (leaky vs guarded nested, GSE25055)",
-  sprintf("- Leaky AUROC %s vs guarded nested AUROC %s -> leakage gap %s.",
+  "## Workflow sensitivity (naive vs guarded nested, GSE25055)",
+  sprintf("- Naive AUROC %s vs guarded nested AUROC %s -> whole-workflow contrast %s.",
           f4(leaky$auroc), f4(guarded$auroc), signed4(gap_auroc)),
-  sprintf("- Leaky PR-AUC %s vs guarded nested PR-AUC %s -> leakage gap %s.",
+  sprintf("- Naive PR-AUC %s vs guarded nested PR-AUC %s -> whole-workflow contrast %s.",
           f4(leaky$pr_auc), f4(guarded$pr_auc), signed4(gap_prauc)),
-  "- The leaky pipeline inflates AUROC and PR-AUC. Guarding selection removes that",
-  "  optimism and, importantly, the guarded nested pipeline IMPROVES the",
+  "- The workflows also differ in tuning and resampling, so the contrasts are",
+  "  descriptive and not isolated causal estimates of feature-selection leakage.",
+  "  The guarded nested workflow improves the",
   sprintf("  imbalance-aware metrics (balanced accuracy %s, MCC %s) over the leaky",
           f4(guarded$balanced_accuracy), f4(guarded$mcc)),
   sprintf("  baseline (balanced accuracy %s, MCC %s).",

@@ -1,2 +1,2 @@
 "status","external_cohort","usable_n","pCR","RD","prevalence","feature_coverage","frozen_cost","threshold","auroc_primary","pr_auc_primary","auroc_sensitivity","pr_auc_sensitivity"
-"go","GSE41998",253,69,184,0.273,1,0.25,0.5,0.66375236294896,0.435274693758921,0.677851291745431,0.429984441244662
+"go","GSE41998",253,69,184,0.273,1,4,0.5,0.692186515437933,0.46340911764369,0.706679269061121,0.467409570268462

@@ -2,6 +2,8 @@
 *_files/
 *_cache/
 notebooks/*.html
+__pycache__/
+*.pyc
 
 # Data and large binaries (never commit raw/processed expression data)
 processed_data/

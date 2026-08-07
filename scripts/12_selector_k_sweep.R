@@ -9,13 +9,13 @@
 # {25, 50, 100, 200}. For each K we compute, at the project seed (20260620):
 #   * leaky AUROC / PR-AUC      (global FS top-K before CV, 5x5 repeated CV, cost 1)
 #   * guarded AUROC / PR-AUC    (nested 5-outer x 5-inner; FS + cost tuning in folds)
-#   * leakage gap dAUROC / dPR-AUC  (leaky - guarded)
+#   * descriptive whole-workflow contrast dAUROC / dPR-AUC (naive - guarded)
 #   * guarded feature stability: Nogueira index, mean Jaccard, stable-core and
 #     unstable-tail counts (from the five outer-fold selected-feature sets)
 #
 # K = 100 is the ANCHOR and must reproduce the committed pilot:
-#   leaky AUROC ~0.7705, guarded ~0.7265, Nogueira ~0.5409, mean Jaccard ~0.3734,
-#   stable core = 28, unstable tail = 102.  If not, the run STOPS.
+#   naive AUROC ~0.7830, guarded ~0.7032, Nogueira ~0.5128, mean Jaccard ~0.3487,
+#   stable core = 26, unstable tail = 105. If not, the run STOPS.
 #
 # Reuses the validated, optimized machinery from scripts 08/09 (fast Welch
 # selector + selector validation guard + rds cache). NO external cohorts.
@@ -46,8 +46,8 @@ KERNEL <- "linear"
 N_FOLDS <- 5; N_REPEATS <- 5; COST <- 1                       # leaky arm
 OUTER_FOLDS <- 5; INNER_FOLDS <- 5; COST_GRID <- c(0.25, 1, 4)  # guarded arm
 # anchor (K=100) committed references
-REF <- list(leaky_auroc = 0.7705, guarded_auroc = 0.7265,
-            nogueira = 0.5409, mean_jaccard = 0.3734, core = 28L, tail = 102L)
+REF <- list(leaky_auroc = 0.7830, guarded_auroc = 0.7032,
+            nogueira = 0.5128, mean_jaccard = 0.3487, core = 26L, tail = 105L)
 
 TAB_DIR <- file.path("tables", "sensitivity")
 RES_DIR <- file.path("results", "sensitivity")
@@ -73,13 +73,16 @@ load_gse25055 <- function(accession = ACCESSION, label_field = LABEL_FIELD) {
   keep <- !(is.na(raw) | raw %in% c("NA","na","N/A","","NaN"))
   labels <- factor(raw[keep], levels = c("RD", "pCR"))
   x <- t(expr[, keep, drop = FALSE]); rownames(x) <- colnames(expr)[keep]
+  ord <- order(rownames(x)); x <- x[ord, , drop = FALSE]; labels <- labels[ord]
   list(x = x, y = labels)
 }
 prep_expression <- function(x) filter_near_zero_variance(x, cutoff = 1e-8)$x
 load_or_cache <- function() {
   if (file.exists(CACHE_X) && file.exists(CACHE_Y)) {
     message("[cache] reading processed matrix/labels from rds cache.")
-    return(list(x = readRDS(CACHE_X), y = readRDS(CACHE_Y)))
+    x <- readRDS(CACHE_X); y <- readRDS(CACHE_Y)
+    ord <- order(rownames(x))
+    return(list(x = x[ord, , drop = FALSE], y = y[ord]))
   }
   dat <- load_gse25055(); x <- prep_expression(dat$x); y <- dat$y
   dir.create("processed_data", recursive = TRUE, showWarnings = FALSE)
@@ -232,7 +235,7 @@ main <- function() {
            xlab="top-K features", ylab="AUROC", main="Leaky vs guarded AUROC by K", xaxt="n"); axis(1, at=Kx)
       lines(Kx, res$guarded_auroc, type="b", pch=17, col="#1E8449"); legend("bottomright", pch=c(19,17), col=c("#C0392B","#1E8449"), legend=c("leaky","guarded"), bty="n")
       plot(Kx, res$gap_auroc, type="b", pch=19, col="#34495E", ylim=range(c(0,res$gap_auroc,res$gap_pr_auc)),
-           xlab="top-K features", ylab="leakage gap", main="Leakage gap by K", xaxt="n"); axis(1, at=Kx)
+           xlab="top-K features", ylab="whole-workflow contrast", main="Naive - guarded contrast by K", xaxt="n"); axis(1, at=Kx)
       lines(Kx, res$gap_pr_auc, type="b", pch=15, col="#7D6608"); abline(h=0, lty=3, col="#888888")
       legend("topright", pch=c(19,15), col=c("#34495E","#7D6608"), legend=c("dAUROC","dPR-AUC"), bty="n"); dev.off()
     }
@@ -252,7 +255,7 @@ main <- function() {
     sprintf("# Selector K-sweep (%s run, GSE25055 only)", RUN_TAG), "",
     sprintf("- Selector fixed (Welch t-test top-K); K in {%s}. Seed %d.", paste(K_GRID, collapse=", "), SEED),
     "- Leaky: global FS top-K before 5x5 repeated CV (cost 1). Guarded: nested 5-outer x 5-inner; FS + cost tuning in training folds.",
-    "- K=100 is the anchor and reproduces the committed pilot (leaky ~0.7705, guarded ~0.7265, Nogueira ~0.5409).",
+    "- K=100 is the anchor and reproduces the submission-aligned run (naive ~0.7830, guarded ~0.7032, Nogueira ~0.5128).",
     "", "## Results by K")
   for (i in seq_len(nrow(res))) notes <- c(notes, sprintf(
     "- K=%d: AUROC leaky %.4f / guarded %.4f (gap %.4f); PR-AUC leaky %.4f / guarded %.4f (gap %.4f); bal.acc %.4f / %.4f; MCC %.4f / %.4f; sens %.4f / %.4f; spec %.4f / %.4f; Nogueira %.4f, mean Jaccard %.4f, stable core %d, unstable tail %d.",

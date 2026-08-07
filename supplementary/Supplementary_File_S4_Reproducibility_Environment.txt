@@ -1,0 +1,39 @@
+Supplementary File S4. Reproducibility Environment Report
+
+Companion to "A Reproducible Evidence-Audit Framework for Leakage, Feature Stability, and Transportability in Translational Omics Classification."
+
+Submission-aligned release: v1.2.0 (2026-08-07)
+Repository: https://github.com/iry496/leakage-aware-smo-svm-omics
+Zenodo concept DOI: 10.5281/zenodo.21134085
+Global random seed: 20260620; repeated-CV seeds: 20260620-20260649.
+
+Execution platform used for the final verification runs
+
+R version 4.4.1 (2024-06-14)
+Platform: aarch64-apple-darwin20
+Running under: macOS Sonoma 14.5
+Time zone: America/Los_Angeles
+
+Core loaded package versions
+
+GEOquery 2.74.0
+Biobase 2.66.0
+caret 7.0-1
+e1071 1.7-17
+pROC 1.19.0.1
+PRROC 1.4
+limma 3.62.2
+matrixStats 1.5.0
+future 1.70.0
+future.apply 1.20.2
+jsonlite 1.8.8
+
+Reproducibility controls
+
+- GEO samples are sorted by accession ID before seeded folds are created.
+- pROC direction is fixed a priori (RD control, pCR case, increasing pCR score).
+- Supervised preprocessing, feature selection, cost tuning, and class weighting in the guarded workflow are confined to training partitions.
+- External labels are used only for final evaluation; feature sets, scaling, model parameters, and decision rules are frozen before projection.
+- Raw expression matrices are not committed. GEO accessions and all derived predictions, fold assignments, selected-feature lists, tables, and figures required to audit the reported results are included in the release.
+
+The complete session snapshot from the executed analysis environment is archived at results/pilot_gse25055/pilot_session_info.txt. Package declarations are in environment/packages.R.

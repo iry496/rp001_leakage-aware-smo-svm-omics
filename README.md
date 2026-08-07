@@ -7,16 +7,33 @@ This repository supports the manuscript:
 - Target journal: **Journal of Biomedical Informatics**
 - Article type: **Research Paper**
 
-This repository contains the analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs corresponding to the submitted manuscript.
+This repository contains the submission-aligned analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for manuscript version 1.2.0.
 
-## Archived manuscript release
+## Archived releases
 
-- Version DOI (this manuscript snapshot): [10.5281/zenodo.21134086](https://doi.org/10.5281/zenodo.21134086)
+- Prior version DOI (v1.1.0): [10.5281/zenodo.21134086](https://doi.org/10.5281/zenodo.21134086)
 - Concept DOI (all versions): [10.5281/zenodo.21134085](https://doi.org/10.5281/zenodo.21134085)
+
+The version-specific DOI for v1.2.0 will be inserted when the submission-matched Zenodo version is published.
 
 ## Summary
 
 High-dimensional omics classifiers can appear credible when data leakage, unstable feature selection, class-imbalance behavior, and weak external transportability remain hidden. This work presents a reproducible **evidence-audit framework** — the Reproducible Omics Evidence Audit — that integrates leakage sensitivity, a label-permutation negative control, guarded (nested) validation, feature-selection stability, external and cross-platform transportability, class-imbalance behavior, reproducibility artifacts, and explicit red-flag triggers into a single reusable reporting instrument. Public breast-cancer neoadjuvant-chemotherapy cohorts (pCR vs. residual disease) serve as a high-dimensional stress test; an established linear SVM is used as a transparent workhorse, not as a methodological advance.
+
+## Submission-aligned results
+
+| Audit component | Result |
+| --- | --- |
+| Naive workflow, GSE25055 | AUROC 0.7830; PR-AUC 0.4257 |
+| Guarded nested workflow, GSE25055 | AUROC 0.7032; PR-AUC 0.3476 |
+| Descriptive whole-workflow contrast | ΔAUROC 0.0799 (95% CI 0.0103–0.1552); ΔPR-AUC 0.0789 (−0.0426–0.1778) |
+| Fixed-orientation permutation control | Naive null AUROC mean 0.8778; guarded null mean 0.4917 |
+| Thirty-seed robustness | AUROC contrast positive in 28/30 seeds; PR-AUC contrast positive in 22/30 |
+| Feature stability | Nogueira 0.5128; mean Jaccard 0.3487; 26 probes in all five anchor folds |
+| GSE25065 | AUROC 0.5633; PR-AUC 0.2986 |
+| GSE41998 primary | AUROC 0.6922; PR-AUC 0.4634 (253 explicit Yes/No cases) |
+
+The naive and guarded arms differ in feature-selection placement, cost policy, and resampling. Their difference is therefore a descriptive whole-workflow contrast, not an isolated causal estimate of leakage.
 
 ## Cohorts
 
@@ -26,6 +43,8 @@ High-dimensional omics classifiers can appear credible when data leakage, unstab
 | GSE25065 | Affymetrix HG-U133A (GPL96) | Same-platform, same-study-family validation |
 | GSE41998 | Affymetrix HG-U133A 2.0 (GPL571) | Cross-platform transportability sensitivity |
 | GSE20194 / GSE20271 | — | Documented but held out (MDACC-lineage patient-overlap risk) |
+
+For GSE41998, the live Series Matrix contains 69 explicit `Yes`, 184 explicit `No`, 20 literal `0`, and 6 missing values in the `pcr` field. The zeros remain a distinct category in `pcrrcb1`; the analysis maps Yes→pCR and No→RD and excludes zeros/missing values without assigning an undocumented clinical meaning.
 
 ## Repository structure
 
@@ -67,4 +86,4 @@ This repository is dual-licensed:
 
 ## How to cite
 
-See [`CITATION.cff`](CITATION.cff). Please cite the archived Zenodo release (version DOI 10.5281/zenodo.21134086).
+See [`CITATION.cff`](CITATION.cff). Use the concept DOI above until the v1.2.0 version DOI is published.

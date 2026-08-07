@@ -10,8 +10,8 @@ abstract: >-
   same-study-family validation), and GSE41998 (cross-platform transportability
   sensitivity).
 type: software
-version: "1.1.0"
-date-released: "2026-07-02"
+version: "1.2.0"
+date-released: "2026-08-07"
 license: CC-BY-4.0
 repository-code: "https://github.com/iry496/leakage-aware-smo-svm-omics"
 doi: "10.5281/zenodo.21134085"
@@ -27,23 +27,26 @@ keywords:
 authors:
   - given-names: Iris
     family-names: Yang
-    affiliation: "California State University, Los Angeles, USA; Purdue University, USA"
-  - given-names: Wing-Keung
-    family-names: Wong
-    affiliation: "Asia University, Taiwan"
-  - given-names: Paul
-    family-names: Tan
-    affiliation: "Harvard University Extension School, USA"
+    affiliation: "California State University, Los Angeles, CA, USA; Purdue University, West Lafayette, IN, USA"
   - given-names: Chung-I
     family-names: Huang
-    affiliation: "National Chung Hsing University, Taiwan"
+    affiliation: "Department of Management Information Systems, National Chung Hsing University, Taichung, Taiwan"
+  - given-names: Paul
+    family-names: Tan
+    affiliation: "Harvard Extension School, Harvard University, Cambridge, MA, USA"
   - given-names: Jewel
     family-names: Wang
-    affiliation: "Brandeis University, USA"
+    affiliation: "Brandeis University, Waltham, MA, USA"
+  - given-names: Jung
+    family-names: Chen
+    affiliation: "University of Chicago, Chicago, IL, USA"
+  - given-names: Wing-Keung
+    family-names: Wong
+    affiliation: "Department of Finance, Asia University, Taichung, Taiwan"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.21134085"
     description: "Concept DOI (all versions)"
   - type: doi
     value: "10.5281/zenodo.21134086"
-    description: "Version DOI (archived release for the submitted manuscript)"
+    description: "Prior project snapshot"

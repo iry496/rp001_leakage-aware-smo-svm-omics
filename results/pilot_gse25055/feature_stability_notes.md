@@ -23,18 +23,17 @@ future full runs.
 - Outer folds: 5
 - Features selected per fold (top K): 100
 - Candidate feature universe: 22283 genes
-- Total unique features ever selected: 222
-- Features selected in all 5 folds: 28
-- Features selected in only 1 fold: 102
-- Mean pairwise Jaccard overlap: 0.3734
-- Median pairwise Jaccard overlap: 0.3699
-- Nogueira (2018) stability index: 0.5409
+- Total unique features ever selected: 229
+- Features selected in all 5 folds: 26
+- Features selected in only 1 fold: 105
+- Mean pairwise Jaccard overlap: 0.3487
+- Median pairwise Jaccard overlap: 0.3246
+- Nogueira (2018) stability index: 0.5128
 
 ## Interpretation
 MODERATE stability: the per-fold gene sets show partial but incomplete agreement.
 
 ## Top recurrent features
-- 202870_s_at: 5/5
 - 203693_s_at: 5/5
 - 203702_s_at: 5/5
 - 203999_at: 5/5
@@ -43,12 +42,13 @@ MODERATE stability: the per-fold gene sets show partial but incomplete agreement
 - 204825_at: 5/5
 - 205225_at: 5/5
 - 205548_s_at: 5/5
-- 206373_at: 5/5
-- 206392_s_at: 5/5
+- 206391_at: 5/5
 - 209204_at: 5/5
-- 209289_at: 5/5
 - 209604_s_at: 5/5
+- 209623_at: 5/5
 - 210052_s_at: 5/5
+- 210084_x_at: 5/5
+- 212099_at: 5/5
 
 ## Limitations
 - Single discovery cohort (GSE25055); no external validation here by design.

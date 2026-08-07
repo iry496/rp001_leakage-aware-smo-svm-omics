@@ -1,9 +1,9 @@
-column,type,description
-domain,string,Audit domain (one of the ten standard domains).
-metric,string,Specific quantity or item within the domain.
-value,string,Point value or summary (verbatim from the committed source).
-interval,string,95% CI or 2.5-97.5%/range where applicable; blank if not defined.
-p_value,string,Associated p-value or empirical p where applicable; blank otherwise.
-reference,string,"Reference point (chance, prevalence, comparator) or count context."
-interpretation,string,"Cautious, within-cohort/diagnostic interpretation."
-source,string,Committed file or location the value is drawn from.
+"column","type","description"
+"domain","string","Audit domain (one of the ten standard domains)."
+"metric","string","Specific quantity or item within the domain."
+"value","string","Point value or summary (verbatim from the committed source)."
+"interval","string","95% CI or 2.5-97.5%/range where applicable; blank if not defined."
+"p_value","string","Associated p-value or empirical p where applicable; blank otherwise."
+"reference","string","Reference point (chance, prevalence, comparator) or count context."
+"interpretation","string","Cautious, within-cohort/diagnostic interpretation."
+"source","string","Committed file or location the value is drawn from."
