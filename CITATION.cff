@@ -14,7 +14,7 @@ version: "1.2.0"
 date-released: "2026-08-07"
 license: CC-BY-4.0
 repository-code: "https://github.com/iry496/leakage-aware-smo-svm-omics"
-doi: "10.5281/zenodo.21134085"
+doi: "10.5281/zenodo.21834590"
 keywords:
   - data leakage
   - transcriptomics
@@ -47,6 +47,9 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.21134085"
     description: "Concept DOI (all versions)"
+  - type: doi
+    value: "10.5281/zenodo.21834590"
+    description: "Version DOI (v1.2.0, JBI submission-aligned release)"
   - type: doi
     value: "10.5281/zenodo.21134086"
     description: "Prior project snapshot"

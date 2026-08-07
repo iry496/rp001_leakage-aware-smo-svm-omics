@@ -9,12 +9,11 @@ This repository supports the manuscript:
 
 This repository contains the submission-aligned analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for manuscript version 1.2.0.
 
-## Archived releases
+## Archived release
 
+- Submission-aligned version DOI (v1.2.0): [10.5281/zenodo.21834590](https://doi.org/10.5281/zenodo.21834590)
 - Prior version DOI (v1.1.0): [10.5281/zenodo.21134086](https://doi.org/10.5281/zenodo.21134086)
 - Concept DOI (all versions): [10.5281/zenodo.21134085](https://doi.org/10.5281/zenodo.21134085)
-
-The version-specific DOI for v1.2.0 will be inserted when the submission-matched Zenodo version is published.
 
 ## Summary
 
@@ -86,4 +85,4 @@ This repository is dual-licensed:
 
 ## How to cite
 
-See [`CITATION.cff`](CITATION.cff). Use the concept DOI above until the v1.2.0 version DOI is published.
+See [`CITATION.cff`](CITATION.cff). Cite the submission-aligned v1.2.0 archive using DOI 10.5281/zenodo.21834590.
