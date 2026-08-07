@@ -1,5 +1,9 @@
 # Protocol v0.1
 
+> Historical protocol retained for provenance. It predates the final dataset
+> roles, manuscript title, and Journal of Biomedical Informatics submission;
+> the v1.2.1 manuscript and release supersede its provisional decisions.
+
 ## Manuscript title
 
 A Leakage-Aware Data Mining Framework for Transcriptomic Biomarker Classification Using Nested SMO/SVM and Feature-Stability Auditing

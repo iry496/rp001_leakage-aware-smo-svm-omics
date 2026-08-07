@@ -2,7 +2,7 @@
 
 The six-panel dashboard is generated from committed outputs only by `scripts/11_plot_evidence_audit_dashboard.R`.
 
-1. Whole-workflow contrast: ΔAUROC 0.0799 (95% CI 0.0103–0.1552; p=0.028) and ΔPR-AUC 0.0789 (95% CI −0.0426–0.1778; p=0.191).
+1. Whole-workflow contrast: ΔAUROC 0.0799 (95% CI 0.0080–0.1514; p=0.026) and ΔPR-AUC 0.0781 (95% CI −0.0423–0.1755; p=0.192).
 2. Fixed-orientation B=1000 permutation control: naive null AUROC mean 0.8778; guarded null AUROC mean 0.4917.
 3. Thirty-seed descriptive contrast: AUROC is positive in 28/30 seeds; PR-AUC in 22/30.
 4. Feature stability: submission-aligned single-run Nogueira 0.5128 and mean Jaccard 0.3487, with the 30-seed distributions shown.

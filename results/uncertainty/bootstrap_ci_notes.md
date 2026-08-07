@@ -14,9 +14,9 @@ Stratified percentile bootstrap, B=2000, seed 20260620. The naive-versus-guarded
 
 ## Submission-aligned findings
 
-- Naive AUROC 0.7830; guarded AUROC 0.7032; ΔAUROC 0.0799 (95% CI 0.0103–0.1552; p=0.028).
-- Naive PR-AUC 0.4257; guarded PR-AUC 0.3476; ΔPR-AUC 0.0789 (95% CI −0.0426–0.1778; p=0.191).
+- Naive AUROC 0.7830; guarded AUROC 0.7032; ΔAUROC 0.0799 (95% CI 0.0080–0.1514; p=0.026).
+- Naive PR-AUC 0.4257; guarded PR-AUC 0.3476; ΔPR-AUC 0.0781 (95% CI −0.0423–0.1755; p=0.192).
 - The AUROC contrast is resolved as positive in this resampling analysis; the PR-AUC contrast is not.
 - The arms also differ in tuning and resampling, so neither contrast isolates the causal effect of feature-selection placement.
 
-The committed CSVs are reproduced by `scripts/checks/07_bootstrap_ci_crosscheck.py`; the canonical R implementation is `scripts/07_bootstrap_ci.R`.
+The canonical outputs are generated only by `scripts/07_bootstrap_ci.R`, using the manuscript-declared pROC and PRROC estimators. `scripts/checks/07_bootstrap_ci_crosscheck.py` writes separate non-canonical approximation files and does not overwrite the submission tables.

@@ -1,6 +1,6 @@
-comparison,auroc_leaky,auroc_guarded,auroc_diff,delong_z,delong_p,n
-leaky_repeat_1 vs guarded_nested,0.7933,0.7032,0.0901,2.161,0.0307,306
-leaky_repeat_2 vs guarded_nested,0.784,0.7032,0.0809,2.1248,0.0336,306
-leaky_repeat_3 vs guarded_nested,0.7796,0.7032,0.0764,1.952,0.0509,306
-leaky_repeat_4 vs guarded_nested,0.7693,0.7032,0.0661,1.5663,0.1173,306
-leaky_repeat_5 vs guarded_nested,0.7891,0.7032,0.0859,2.3233,0.0202,306
+"comparison","auroc_leaky","auroc_guarded","auroc_diff","delong_z","delong_p","n"
+"leaky_repeat_1 vs guarded_nested",0.7933,0.7032,0.0901,2.161,0.0307,306
+"leaky_repeat_2 vs guarded_nested",0.784,0.7032,0.0809,2.1248,0.0336,306
+"leaky_repeat_3 vs guarded_nested",0.7796,0.7032,0.0764,1.952,0.0509,306
+"leaky_repeat_4 vs guarded_nested",0.7693,0.7032,0.0661,1.5663,0.1173,306
+"leaky_repeat_5 vs guarded_nested",0.7891,0.7032,0.0859,2.3233,0.0202,306

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.1 — 2026-08-07
+
+Bounded synchronization release for the Journal of Biomedical Informatics submission.
+
+- Restored the manuscript-declared R/PRROC uncertainty workflow as the sole canonical source and regenerated all downstream evidence-audit outputs.
+- Isolated the approximate Python cross-check so it can no longer overwrite submission tables.
+- Added selector-K sensitivity results to Supplementary File S2.
+- Clarified operating-point aggregation, GSE41998 thresholding, supplementary cross-references, archive metadata, and the Hatzis reference.
+- Regenerated the manuscript, QA proof, S5 dashboard, repository metadata, and Drive submission package.
+
 ## 1.2.0 — 2026-08-07
 
 Submission-matched release for the Journal of Biomedical Informatics manuscript.

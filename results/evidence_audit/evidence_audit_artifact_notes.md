@@ -21,6 +21,6 @@ This artifact makes the manuscript's Reproducible Omics Evidence Audit reproduci
 
 ## Interpretation guardrails
 
-The naive and guarded arms differ in feature-selection placement, cost policy, and resampling. Their difference is therefore a descriptive whole-workflow contrast, not an isolated causal estimate of leakage. The paired bootstrap gives ΔAUROC 0.0799 (95% CI 0.0103–0.1552; p=0.028) and ΔPR-AUC 0.0789 (95% CI −0.0426–0.1778; p=0.191). The 30-seed direction check is split-level robustness, not patient-level inference. External results audit transportability and do not validate a clinical biomarker.
+The naive and guarded arms differ in feature-selection placement, cost policy, and resampling. Their difference is therefore a descriptive whole-workflow contrast, not an isolated causal estimate of leakage. The canonical R/PRROC paired bootstrap gives ΔAUROC 0.0799 (95% CI 0.0080–0.1514; p=0.026) and ΔPR-AUC 0.0781 (95% CI −0.0423–0.1755; p=0.192). The 30-seed direction check is split-level robustness, not patient-level inference. External results audit transportability and do not validate a clinical biomarker.
 
 Regenerate with `Rscript scripts/10_build_evidence_audit_artifact.R`.

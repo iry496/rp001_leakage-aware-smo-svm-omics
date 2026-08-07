@@ -3,7 +3,7 @@
   "upload_type": "publication",
   "publication_type": "preprint",
   "description": "Submission-aligned code, outputs, figures, supplements, and manuscript for a reproducible evidence-audit framework in high-dimensional translational omics classification. A naive global-selection workflow is contrasted descriptively with a guarded nested workflow; because the arms also differ in tuning and resampling, the contrast is not presented as an isolated causal leakage estimate. Public breast-cancer neoadjuvant-chemotherapy cohorts are used as a stress test: GSE25055 (discovery/internal validation), GSE25065 (same-platform same-study-family validation), and GSE41998 (cross-platform transportability sensitivity).",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "language": "eng",
   "access_right": "open",
   "license": "cc-by-4.0",

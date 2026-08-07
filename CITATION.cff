@@ -10,11 +10,11 @@ abstract: >-
   same-study-family validation), and GSE41998 (cross-platform transportability
   sensitivity).
 type: software
-version: "1.2.0"
+version: "1.2.1"
 date-released: "2026-08-07"
 license: CC-BY-4.0
 repository-code: "https://github.com/iry496/leakage-aware-smo-svm-omics"
-doi: "10.5281/zenodo.21834590"
+doi: "10.5281/zenodo.21134085"
 keywords:
   - data leakage
   - transcriptomics
@@ -49,7 +49,7 @@ identifiers:
     description: "Concept DOI (all versions)"
   - type: doi
     value: "10.5281/zenodo.21834590"
-    description: "Version DOI (v1.2.0, JBI submission-aligned release)"
+    description: "Previous submission-aligned version DOI (v1.2.0)"
   - type: doi
     value: "10.5281/zenodo.21134086"
     description: "Prior project snapshot"

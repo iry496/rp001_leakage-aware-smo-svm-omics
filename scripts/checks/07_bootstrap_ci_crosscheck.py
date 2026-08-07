@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """scripts/checks/07_bootstrap_ci_crosscheck.py
 
-Python cross-check that generated the committed uncertainty tables and that
-validates scripts/07_bootstrap_ci.R. NO new modeling: it resamples the already
-committed out-of-fold predictions.
+Non-canonical Python cross-check for scripts/07_bootstrap_ci.R. NO new
+modeling: it resamples the already committed out-of-fold predictions. Because
+its PR integral and random-number generator are only approximations to the
+declared R/PRROC workflow, it writes separate validation files and must never
+overwrite the canonical uncertainty tables.
 
 Reproduces, against the manuscript point estimates:
   * AUROC and operating-point metrics exactly,
   * PR-AUC via a Davis-Goadrich integral that matches PRROC::pr.curve(
     ...)$auc.integral to ~0.001-0.002.
 
-Outputs (same as the R script):
-  tables/uncertainty/bootstrap_ci.csv
-  tables/uncertainty/delta_auroc_prauc_ci.csv
-  results/uncertainty/delong_tests.csv
+Outputs (cross-check only):
+  tables/uncertainty/python_crosscheck/bootstrap_ci_python.csv
+  tables/uncertainty/python_crosscheck/delta_auroc_prauc_ci_python.csv
+  results/uncertainty/delong_tests_python_crosscheck.csv
 
 Method: stratified percentile bootstrap (B=2000, seed=20260620). The leaky
 baseline AUROC/PR-AUC point estimate is the mean across the 5 repeated-CV runs;
@@ -30,6 +32,7 @@ from scipy import stats
 SEED, B, POS, NEG = 20260620, 2000, "pCR", "RD"
 rng = np.random.default_rng(SEED)
 os.makedirs("tables/uncertainty", exist_ok=True)
+os.makedirs("tables/uncertainty/python_crosscheck", exist_ok=True)
 os.makedirs("results/uncertainty", exist_ok=True)
 
 
@@ -186,7 +189,9 @@ for kind in ["leaky", "nested", "external"]:
                          point=round(points[kind][m], 4), ci_lo=round(lo, 4),
                          ci_hi=round(hi, 4), n_boot=B,
                          method="stratified percentile bootstrap"))
-pd.DataFrame(rows).to_csv("tables/uncertainty/bootstrap_ci.csv", index=False)
+pd.DataFrame(rows).to_csv(
+    "tables/uncertainty/python_crosscheck/bootstrap_ci_python.csv", index=False
+)
 
 # paired bootstrap delta
 dau, dpr = [], []
@@ -212,7 +217,10 @@ pd.DataFrame([
          point=round(points["leaky"]["pr_auc"] - points["nested"]["pr_auc"], 4),
          ci_lo=round(np.percentile(dpr, 2.5), 4), ci_hi=round(np.percentile(dpr, 97.5), 4),
          boot_p=p2(dpr), n_boot=B, method="paired stratified bootstrap"),
-]).to_csv("tables/uncertainty/delta_auroc_prauc_ci.csv", index=False)
+]).to_csv(
+    "tables/uncertainty/python_crosscheck/delta_auroc_prauc_ci_python.csv",
+    index=False,
+)
 
 # DeLong per repeat
 drows = []
@@ -223,6 +231,8 @@ for r in reps:
                       auroc_leaky=round(a1, 4), auroc_guarded=round(a2, 4),
                       auroc_diff=round(a1 - a2, 4), delong_z=round(z, 4),
                       delong_p=round(p, 4), n=len(ids)))
-pd.DataFrame(drows).to_csv("results/uncertainty/delong_tests.csv", index=False)
-print("[07-crosscheck] wrote uncertainty tables; DeLong median p =",
+pd.DataFrame(drows).to_csv(
+    "results/uncertainty/delong_tests_python_crosscheck.csv", index=False
+)
+print("[07-crosscheck] wrote separate non-canonical validation files; DeLong median p =",
       round(float(np.median([d["delong_p"] for d in drows])), 4))

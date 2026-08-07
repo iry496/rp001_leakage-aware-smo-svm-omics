@@ -7,11 +7,12 @@ This repository supports the manuscript:
 - Target journal: **Journal of Biomedical Informatics**
 - Article type: **Research Paper**
 
-This repository contains the submission-aligned analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for manuscript version 1.2.0.
+This repository contains the submission-aligned analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for manuscript version 1.2.1.
 
 ## Archived release
 
-- Submission-aligned version DOI (v1.2.0): [10.5281/zenodo.21834590](https://doi.org/10.5281/zenodo.21834590)
+- Current submission-aligned version: **v1.2.1** (version DOI assigned when the release is archived)
+- Previous submission-aligned version DOI (v1.2.0): [10.5281/zenodo.21834590](https://doi.org/10.5281/zenodo.21834590)
 - Prior version DOI (v1.1.0): [10.5281/zenodo.21134086](https://doi.org/10.5281/zenodo.21134086)
 - Concept DOI (all versions): [10.5281/zenodo.21134085](https://doi.org/10.5281/zenodo.21134085)
 
@@ -25,7 +26,7 @@ High-dimensional omics classifiers can appear credible when data leakage, unstab
 | --- | --- |
 | Naive workflow, GSE25055 | AUROC 0.7830; PR-AUC 0.4257 |
 | Guarded nested workflow, GSE25055 | AUROC 0.7032; PR-AUC 0.3476 |
-| Descriptive whole-workflow contrast | ΔAUROC 0.0799 (95% CI 0.0103–0.1552); ΔPR-AUC 0.0789 (−0.0426–0.1778) |
+| Descriptive whole-workflow contrast | ΔAUROC 0.0799 (95% CI 0.0080–0.1514; p=0.026); ΔPR-AUC 0.0781 (−0.0423–0.1755; p=0.192) |
 | Fixed-orientation permutation control | Naive null AUROC mean 0.8778; guarded null mean 0.4917 |
 | Thirty-seed robustness | AUROC contrast positive in 28/30 seeds; PR-AUC contrast positive in 22/30 |
 | Feature stability | Nogueira 0.5128; mean Jaccard 0.3487; 26 probes in all five anchor folds |
@@ -76,6 +77,25 @@ supplementary/    Supplementary files
 | Class weighting | Training fold only |
 | External validation | Frozen preprocessing, feature set, model, and threshold |
 
+## Reproduce the submission outputs
+
+Use R 4.4.x with the packages declared in `environment/packages.R`. From the
+repository root, run the numbered scripts in order. The submission-critical
+refresh sequence is:
+
+```sh
+Rscript scripts/07_bootstrap_ci.R
+Rscript scripts/10_build_evidence_audit_artifact.R
+Rscript scripts/11_plot_evidence_audit_dashboard.R
+```
+
+`scripts/07_bootstrap_ci.R` is the sole canonical uncertainty implementation
+because it uses the manuscript-declared pROC and PRROC estimators. The Python
+script under `scripts/checks/` writes separate approximation files only. Raw
+expression matrices are retrieved from GEO and are not redistributed; the
+accessions, committed predictions, folds, selected features, expected tables,
+and figures provide an auditable reproduction path.
+
 ## License
 
 This repository is dual-licensed:
@@ -85,4 +105,4 @@ This repository is dual-licensed:
 
 ## How to cite
 
-See [`CITATION.cff`](CITATION.cff). Cite the submission-aligned v1.2.0 archive using DOI 10.5281/zenodo.21834590.
+See [`CITATION.cff`](CITATION.cff). Cite v1.2.1 through the Zenodo concept DOI 10.5281/zenodo.21134085 until the version-specific DOI is assigned.

@@ -18,8 +18,8 @@ significance test for the leakage gap.
 
 The computations are produced by `scripts/07_bootstrap_ci.R` (canonical, using
 `pROC` + `PRROC`). A Python cross-check, `scripts/checks/07_bootstrap_ci_crosscheck.py`,
-generated the committed tables and agrees with the R script on point estimates
-and DeLong results. Full method and reproducibility notes are in
+writes separate approximation files for validation and never overwrites the
+canonical tables. Full method and reproducibility notes are in
 `results/uncertainty/bootstrap_ci_notes.md`.
 
 ```{r read}
@@ -70,8 +70,8 @@ knitr::kable(
 
 ## Headline interpretation
 
-- **AUROC and operating-point metrics reproduce the manuscript exactly**;
-  PR-AUC matches `PRROC::pr.curve(...)$auc.integral` to ~0.001–0.002.
+- **All point estimates and intervals use the manuscript-declared R
+  implementation** (`pROC` and `PRROC`) and reproduce the manuscript exactly.
 - **The naive-minus-guarded whole-workflow contrast is positive for AUROC and
   uncertain for PR-AUC.** Values are read directly from the regenerated table:
   ΔAUROC = `r delta$point[delta$metric=="delta_auroc"]`

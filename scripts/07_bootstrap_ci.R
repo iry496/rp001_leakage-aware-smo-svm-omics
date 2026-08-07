@@ -27,10 +27,11 @@
 #   * The leaky baseline AUROC/PR-AUC point estimates are the MEAN across the
 #     5 repeated-CV runs (matching the manuscript), so the bootstrap recomputes
 #     that mean within each resample. Operating-point metrics pool the repeats.
-#   * Point estimates and DeLong p-values are deterministic. Bootstrap CIs are
-#     reproducible within R given set.seed() below; a Python cross-check
-#     (scripts/checks/07_bootstrap_ci_crosscheck.py) generated the committed
-#     CSVs and agrees with this script on point estimates and DeLong results.
+#   * This R implementation is canonical because it uses the manuscript's
+#     declared pROC and PRROC estimators. Point estimates and DeLong p-values
+#     are deterministic; bootstrap CIs are reproducible within R given the
+#     seed below. The Python script in scripts/checks/ writes separate,
+#     non-canonical approximation files and never overwrites these outputs.
 # =============================================================================
 
 suppressPackageStartupMessages({

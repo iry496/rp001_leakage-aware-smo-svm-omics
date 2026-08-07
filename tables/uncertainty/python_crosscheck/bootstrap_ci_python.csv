@@ -1,0 +1,19 @@
+cohort,pipeline,metric,point,ci_lo,ci_hi,n_boot,method
+GSE25055,A_leaky_baseline,auroc,0.783,0.727,0.834,2000,stratified percentile bootstrap
+GSE25055,A_leaky_baseline,pr_auc,0.4252,0.3489,0.5204,2000,stratified percentile bootstrap
+GSE25055,A_leaky_baseline,balanced_accuracy,0.5525,0.5249,0.5833,2000,stratified percentile bootstrap
+GSE25055,A_leaky_baseline,mcc,0.1982,0.0998,0.2944,2000,stratified percentile bootstrap
+GSE25055,A_leaky_baseline,sensitivity,0.1298,0.0772,0.1895,2000,stratified percentile bootstrap
+GSE25055,A_leaky_baseline,specificity,0.9751,0.9622,0.9871,2000,stratified percentile bootstrap
+GSE25055,B_guarded_nested,auroc,0.7032,0.6258,0.7752,2000,stratified percentile bootstrap
+GSE25055,B_guarded_nested,pr_auc,0.3463,0.2654,0.469,2000,stratified percentile bootstrap
+GSE25055,B_guarded_nested,balanced_accuracy,0.5724,0.5225,0.625,2000,stratified percentile bootstrap
+GSE25055,B_guarded_nested,mcc,0.2138,0.0693,0.3543,2000,stratified percentile bootstrap
+GSE25055,B_guarded_nested,sensitivity,0.193,0.1053,0.2982,2000,stratified percentile bootstrap
+GSE25055,B_guarded_nested,specificity,0.9518,0.9237,0.9759,2000,stratified percentile bootstrap
+GSE25065,B_guarded_nested_external,auroc,0.5633,0.4551,0.6641,2000,stratified percentile bootstrap
+GSE25065,B_guarded_nested_external,pr_auc,0.2983,0.2226,0.4127,2000,stratified percentile bootstrap
+GSE25065,B_guarded_nested_external,balanced_accuracy,0.531,0.4833,0.5834,2000,stratified percentile bootstrap
+GSE25065,B_guarded_nested_external,mcc,0.1013,-0.0648,0.2685,2000,stratified percentile bootstrap
+GSE25065,B_guarded_nested_external,sensitivity,0.119,0.0238,0.2143,2000,stratified percentile bootstrap
+GSE25065,B_guarded_nested_external,specificity,0.9429,0.9,0.9786,2000,stratified percentile bootstrap

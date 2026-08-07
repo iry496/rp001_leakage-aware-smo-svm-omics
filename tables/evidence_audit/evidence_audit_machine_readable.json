@@ -40,8 +40,8 @@
           {
             "metric": "Internal whole-workflow contrast, delta AUROC",
             "value": "0.0799",
-            "interval": "[0.0103, 0.1552]",
-            "p_value": "0.028",
+            "interval": "[0.008, 0.1514]",
+            "p_value": "0.026",
             "reference": "0",
             "interpretation": "Descriptive whole-workflow contrast; arms also differ in tuning and resampling.",
             "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
@@ -50,9 +50,9 @@
         [
           {
             "metric": "Internal whole-workflow contrast, delta PR-AUC",
-            "value": "0.0789",
-            "interval": "[-0.0426, 0.1778]",
-            "p_value": "0.191",
+            "value": "0.0781",
+            "interval": "[-0.0423, 0.1755]",
+            "p_value": "0.192",
             "reference": "0",
             "interpretation": "Descriptive whole-workflow contrast; not an isolated leakage-effect estimate.",
             "source": "tables/uncertainty/delta_auroc_prauc_ci.csv"
@@ -78,7 +78,7 @@
           {
             "metric": "Leaky AUROC",
             "value": "0.783",
-            "interval": "[0.727, 0.834]",
+            "interval": "[0.7278, 0.8357]",
             "p_value": "",
             "reference": "",
             "interpretation": "95% stratified percentile bootstrap (B=2000).",
@@ -89,7 +89,7 @@
           {
             "metric": "Guarded AUROC",
             "value": "0.7032",
-            "interval": "[0.6258, 0.7752]",
+            "interval": "[0.6281, 0.772]",
             "p_value": "",
             "reference": "",
             "interpretation": "95% stratified percentile bootstrap (B=2000).",
@@ -99,8 +99,8 @@
         [
           {
             "metric": "Leaky PR-AUC",
-            "value": "0.4252",
-            "interval": "[0.3489, 0.5204]",
+            "value": "0.4257",
+            "interval": "[0.3501, 0.5208]",
             "p_value": "",
             "reference": "",
             "interpretation": "95% stratified percentile bootstrap (B=2000).",
@@ -110,8 +110,8 @@
         [
           {
             "metric": "Guarded PR-AUC",
-            "value": "0.3463",
-            "interval": "[0.2654, 0.469]",
+            "value": "0.3476",
+            "interval": "[0.2674, 0.467]",
             "p_value": "",
             "reference": "",
             "interpretation": "95% stratified percentile bootstrap (B=2000).",
@@ -241,7 +241,7 @@
           {
             "metric": "External AUROC (GSE25065)",
             "value": "0.5633",
-            "interval": "[0.4551, 0.6641]",
+            "interval": "[0.4632, 0.6612]",
             "p_value": "",
             "reference": "discovery guarded 0.7032",
             "interpretation": "Transportability drop (~ -0.140 AUROC); a generalization limit, distinct from leakage.",
