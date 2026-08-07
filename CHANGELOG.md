@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.3 — 2026-08-07
+
+Final minor synchronization release for the Journal of Biomedical Informatics submission.
+
+- Replaced the stale Section 3.11 statement of uniformly low pCR sensitivity with cohort- and scaling-dependent operating-point behavior for GSE25065 and GSE41998.
+- Aligned the Declaration of Interests with Iris Yang's co-corresponding-author role.
+- Updated the retained protocol provenance note to identify v1.2.2 as the superseding release.
+- Recorded completion of all five final-author approvals and the written consent for the authorship change in the cover letter.
+- Regenerated the manuscript, editorial documents, QA proof, and submission package without changing scientific results.
+- Archived the final minor synchronization release at Zenodo DOI 10.5281/zenodo.21842032.
+
 ## 1.2.2 — 2026-08-07
 
 Bounded authorship-synchronization release for the Journal of Biomedical Informatics submission.

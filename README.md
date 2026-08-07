@@ -7,11 +7,12 @@ This repository supports the manuscript:
 - Target journal: **Journal of Biomedical Informatics**
 - Article type: **Research Paper**
 
-This repository contains the submission-aligned analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for manuscript version 1.2.2.
+This repository contains the submission-aligned analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for manuscript version 1.2.3.
 
 ## Archived release
 
-- Current submission-aligned version DOI (v1.2.2): [10.5281/zenodo.21840696](https://doi.org/10.5281/zenodo.21840696)
+- Current submission-aligned version DOI (v1.2.3): [10.5281/zenodo.21842032](https://doi.org/10.5281/zenodo.21842032)
+- Previous five-author synchronization release DOI (v1.2.2): [10.5281/zenodo.21840696](https://doi.org/10.5281/zenodo.21840696)
 - Previous synchronization release DOI (v1.2.1): [10.5281/zenodo.21840371](https://doi.org/10.5281/zenodo.21840371)
 - Previous submission-aligned version DOI (v1.2.0): [10.5281/zenodo.21834590](https://doi.org/10.5281/zenodo.21834590)
 - Prior version DOI (v1.1.0): [10.5281/zenodo.21134086](https://doi.org/10.5281/zenodo.21134086)
@@ -106,4 +107,4 @@ This repository is dual-licensed:
 
 ## How to cite
 
-See [`CITATION.cff`](CITATION.cff). Cite the submission-aligned v1.2.2 archive using DOI [10.5281/zenodo.21840696](https://doi.org/10.5281/zenodo.21840696).
+See [`CITATION.cff`](CITATION.cff). Cite the submission-aligned v1.2.3 archive using DOI [10.5281/zenodo.21842032](https://doi.org/10.5281/zenodo.21842032).

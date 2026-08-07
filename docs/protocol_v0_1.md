@@ -2,7 +2,7 @@
 
 > Historical protocol retained for provenance. It predates the final dataset
 > roles, manuscript title, and Journal of Biomedical Informatics submission;
-> the v1.2.1 manuscript and release supersede its provisional decisions.
+> the v1.2.2 manuscript and release supersede its provisional decisions.
 
 ## Manuscript title
 
