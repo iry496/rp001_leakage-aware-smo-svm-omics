@@ -36,7 +36,7 @@ and the revised NCI ODS poster abstract.
 
 ## Included abstract
 
-- `deliverables/NCI_ODS_Abstract_266_words.md`
+- `deliverables/NCI_ODS_Abstract_278_words.md`
 - The abstract contains no DOI.
 
 Temporary smoke outputs, processed expression matrices, raw data, RDS caches,
