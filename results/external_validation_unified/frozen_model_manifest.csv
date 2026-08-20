@@ -1,0 +1,2 @@
+"discovery","discovery_n","top_k","svm_kernel","selected_cost","class_weights","probability","primary_scaling","threshold"
+"GSE25055",306,100,"linear",4,"inverse class frequency from discovery","e1071/libsvm probability=TRUE; one final fit reused","GSE25055 center/scale frozen and reused",0.5

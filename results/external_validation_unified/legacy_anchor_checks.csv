@@ -1,0 +1,6 @@
+"cohort","scaling","metric","legacy_value","tolerance","unified_value","absolute_difference","pass"
+"GSE25065","discovery_derived_primary","auroc",0.5633,0.005,0.563265306122449,3.4693877551506e-05,TRUE
+"GSE25065","discovery_derived_primary","pr_auc",0.2986,0.005,0.298554118702636,4.58812973635481e-05,TRUE
+"GSE41998","discovery_derived_primary","auroc",0.6922,0.005,0.692186515437933,1.34845620669566e-05,TRUE
+"GSE41998","discovery_derived_primary","pr_auc",0.4634,0.005,0.46340911764369,9.11764369049273e-06,TRUE
+"GSE41998","within_cohort_zscore_sensitivity","auroc",0.7067,0.005,0.706679269061121,2.07309388787769e-05,TRUE

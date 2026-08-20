@@ -1,0 +1,4 @@
+"cohort","role","platform","analyzed_n","pcr_n","rd_n","excluded_n","endpoint_mapping","primary_scaling"
+"GSE25055","discovery/model development","GPL96 / HG-U133A",306,57,249,4,"pathologic_response_pcr_rd: pCR/RD; NA excluded","training-partition/discovery-derived"
+"GSE25065","same-study-family external validation","GPL96 / HG-U133A",182,42,140,16,"pathologic_response_pcr_rd: pCR/RD; NA excluded","frozen discovery-derived"
+"GSE41998","independent cross-platform transportability sensitivity","GPL571 / HG-U133A 2.0",253,69,184,26,"pcr: Yes->pCR, No->RD; literal 0 and missing/other excluded","frozen discovery-derived"

@@ -1,0 +1,16 @@
+"component","leaky","guarded","matched"
+"samples","GSE25055 n=306","GSE25055 n=306",TRUE
+"outer_folds","shared","shared",TRUE
+"inner_folds","shared","shared",TRUE
+"feature_budget","100","100",TRUE
+"selector","absolute Welch t statistic","absolute Welch t statistic",TRUE
+"cost_grid","0.25|1|4","0.25|1|4",TRUE
+"tuning_metric","balanced accuracy at 0.5","balanced accuracy at 0.5",TRUE
+"scaling","training-partition center/scale","training-partition center/scale",TRUE
+"class_weights","inverse frequency","inverse frequency",TRUE
+"model","linear e1071 SVM","linear e1071 SVM",TRUE
+"probability_procedure","libsvm probability=TRUE","libsvm probability=TRUE",TRUE
+"final_fit_rng_seed","shared by repeat and outer fold","shared by repeat and outer fold",TRUE
+"threshold","0.5","0.5",TRUE
+"performance_estimators","shared","shared",TRUE
+"supervised_feature_selection_placement","once on all samples before CV","refit inside each training partition",FALSE

@@ -37,6 +37,31 @@ High-dimensional omics classifiers can appear credible when data leakage, unstab
 
 The naive and guarded arms differ in feature-selection placement, cost policy, and resampling. Their difference is therefore a descriptive whole-workflow contrast, not an isolated causal estimate of leakage.
 
+## Current working analysis extensions
+
+These post-v1.2.3 extensions are reproducible working-branch analyses and are
+not part of the archived submission-aligned release above.
+
+| Extension | Result |
+| --- | --- |
+| Thirty-repeat matched ablation | Leaky mean AUROC 0.7870; guarded 0.7256; paired mean difference 0.0615; positive in 30/30 repeats; empirical 2.5th–97.5th percentile split interval 0.0084–0.1201 |
+| Matched PR-AUC | Leaky mean 0.4237; guarded 0.3733; paired mean difference 0.0505; positive in 24/30 repeats |
+| Unified GSE25065 projection | AUROC 0.5633 (conditional 95% bootstrap interval 0.4643–0.6684); calibration slope 0.1480; sensitivity/specificity 0.1190/0.9429 |
+| Unified GSE41998 primary projection | AUROC 0.6922 (0.6146–0.7599); calibration slope 0.6166; sensitivity/specificity 0.7971/0.5000 |
+
+The matched ablation uses identical outer and inner folds, tuning policy, cost
+grid, scaling, class weighting, model family, probability procedure, final-fit
+random-number seed, 0.5 threshold, and estimators in both arms. Only supervised
+feature-selection placement changes. Its split-distribution interval describes
+robustness across correlated repeated partitions and is not an
+independence-based confidence interval.
+
+The unified external analysis fits one GSE25055 model once and reuses that exact
+model, discovery-derived scaler, and 0.5 threshold for both primary external
+projections. Its bootstrap intervals are conditional on the frozen model and
+stored external predictions; they do not include discovery-workflow refitting
+uncertainty.
+
 ## Cohorts
 
 | Cohort | Platform | Role |
@@ -55,7 +80,8 @@ R/                Reusable R functions (feature selection, preprocessing, model,
 scripts/          Analysis scripts: dataset audit, leaky baseline, guarded nested pipeline,
                   feature stability, external validation (GSE25065, GSE41998), evidence-audit
                   table, bootstrap CIs, permutation control, repeated nested CV, selector K-sweep,
-                  figures, and evidence-audit dashboard
+                  matched one-factor ablation, unified external validation, figures, and
+                  evidence-audit dashboard
 notebooks/        Quarto notebooks
 data_accessions/  GEO accession registry
 processed_data/   Derived matrices (large files not committed)
@@ -89,6 +115,13 @@ refresh sequence is:
 Rscript scripts/07_bootstrap_ci.R
 Rscript scripts/10_build_evidence_audit_artifact.R
 Rscript scripts/11_plot_evidence_audit_dashboard.R
+```
+
+Run the working analysis extensions with:
+
+```sh
+Rscript scripts/16_matched_ablation_gse25055.R full 30
+Rscript scripts/17_external_validation_unified.R
 ```
 
 `scripts/07_bootstrap_ci.R` is the sole canonical uncertainty implementation
