@@ -64,7 +64,7 @@ results/          Analysis outputs: metrics, predictions, selected features, fol
 figures/          Generated figures
 tables/           Generated tables (dataset audit, pipeline comparison, evidence audit)
 environment/      Package/version environment files
-manuscript/       Manuscript files
+manuscript/       Note on the archived v1.2.3 manuscript (full text in the Zenodo archive)
 supplementary/    Supplementary files
 ```
 
