@@ -1,6 +1,6 @@
 # Manuscript
 
-This directory contains only the submission-aligned v1.2.3 manuscript export and its QA PDF. Superseded drafts and authoring changelogs were removed from the release and remain recoverable from Git history.
+This directory contains only the archived v1.2.3 manuscript export (preprint version) and its QA PDF. Superseded drafts and authoring changelogs were removed from the release and remain recoverable from Git history.
 
 Canonical files:
 
