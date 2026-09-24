@@ -1,28 +1,27 @@
 # Reproducible Omics Evidence Audit
 
-This repository supports the manuscript:
+This repository contains the archived materials for manuscript version 1.2.3:
 
 **A Reproducible Evidence-Audit Framework for Leakage, Feature Stability, and Transportability in Translational Omics Classification**
 
-- Target journal: **Journal of Biomedical Informatics**
-- Article type: **Research Paper**
+The materials include the analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for that version, which is archived on Zenodo as a preprint.
 
-This repository contains the submission-aligned analysis code, random seeds, fold assignments, selected-feature lists, software-environment files, generated figures and tables, supplementary materials, and preserved analysis outputs for manuscript version 1.2.3.
+> **Status:** A revised version of this work is not yet included in this repository. Its code and outputs will be added here, and archived under a new Zenodo DOI, upon acceptance of the revised manuscript. All results below refer to the archived v1.2.3 analysis.
 
 ## Archived release
 
-- Current submission-aligned version DOI (v1.2.3): [10.5281/zenodo.21842032](https://doi.org/10.5281/zenodo.21842032)
+- Latest archived version DOI (v1.2.3, preprint): [10.5281/zenodo.21842032](https://doi.org/10.5281/zenodo.21842032)
 - Previous five-author synchronization release DOI (v1.2.2): [10.5281/zenodo.21840696](https://doi.org/10.5281/zenodo.21840696)
 - Previous synchronization release DOI (v1.2.1): [10.5281/zenodo.21840371](https://doi.org/10.5281/zenodo.21840371)
-- Previous submission-aligned version DOI (v1.2.0): [10.5281/zenodo.21834590](https://doi.org/10.5281/zenodo.21834590)
+- Previous version DOI (v1.2.0): [10.5281/zenodo.21834590](https://doi.org/10.5281/zenodo.21834590)
 - Prior version DOI (v1.1.0): [10.5281/zenodo.21134086](https://doi.org/10.5281/zenodo.21134086)
 - Concept DOI (all versions): [10.5281/zenodo.21134085](https://doi.org/10.5281/zenodo.21134085)
 
 ## Summary
 
-High-dimensional omics classifiers can appear credible when data leakage, unstable feature selection, class-imbalance behavior, and weak external transportability remain hidden. This work presents a reproducible **evidence-audit framework** — the Reproducible Omics Evidence Audit — that integrates leakage sensitivity, a label-permutation negative control, guarded (nested) validation, feature-selection stability, external and cross-platform transportability, class-imbalance behavior, reproducibility artifacts, and explicit red-flag triggers into a single reusable reporting instrument. Public breast-cancer neoadjuvant-chemotherapy cohorts (pCR vs. residual disease) serve as a high-dimensional stress test; an established linear SVM is used as a transparent workhorse, not as a methodological advance.
+High-dimensional omics classifiers can appear credible when data leakage, unstable feature selection, class-imbalance behavior, and weak external transportability remain hidden. Version 1.2.3 presents a reproducible **evidence-audit framework** — the Reproducible Omics Evidence Audit — that integrates leakage sensitivity, a label-permutation negative control, guarded (nested) validation, feature-selection stability, external and cross-platform transportability, class-imbalance behavior, reproducibility artifacts, and explicit red-flag triggers into a single reusable reporting instrument. Public breast-cancer neoadjuvant-chemotherapy cohorts (pCR vs. residual disease) serve as a high-dimensional stress test; an established linear SVM is used as a transparent workhorse, not as a methodological advance.
 
-## Submission-aligned results
+## Results of the archived v1.2.3 analysis
 
 | Audit component | Result |
 | --- | --- |
@@ -79,11 +78,11 @@ supplementary/    Supplementary files
 | Class weighting | Training fold only |
 | External validation | Frozen preprocessing, feature set, model, and threshold |
 
-## Reproduce the submission outputs
+## Reproduce the v1.2.3 outputs
 
 Use R 4.4.x with the packages declared in `environment/packages.R`. From the
-repository root, run the numbered scripts in order. The submission-critical
-refresh sequence is:
+repository root, run the numbered scripts in order. The refresh sequence for
+the v1.2.3 evidence-audit outputs is:
 
 ```sh
 Rscript scripts/07_bootstrap_ci.R
@@ -107,4 +106,4 @@ This repository is dual-licensed:
 
 ## How to cite
 
-See [`CITATION.cff`](CITATION.cff). Cite the submission-aligned v1.2.3 archive using DOI [10.5281/zenodo.21842032](https://doi.org/10.5281/zenodo.21842032).
+See [`CITATION.cff`](CITATION.cff). Cite the archived v1.2.3 preprint using DOI [10.5281/zenodo.21842032](https://doi.org/10.5281/zenodo.21842032).
