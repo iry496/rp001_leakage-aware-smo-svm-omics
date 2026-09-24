@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-09-24
+
+Repository landing-page update. No code, data, results, manuscript files, or releases changed.
+
+- Removed the target-journal and article-type statements from the README.
+- Replaced "submission-aligned" wording in the README and `manuscript/README.md` with references to the archived v1.2.3 preprint.
+- Added a status note that a revised version is not yet included and will be added and archived under a new Zenodo DOI upon acceptance.
+
 ## 1.2.3 — 2026-08-07
 
 Final minor synchronization release for the Journal of Biomedical Informatics submission.
