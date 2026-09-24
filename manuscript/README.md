@@ -1,10 +1,5 @@
 # Manuscript
 
-This directory contains only the archived v1.2.3 manuscript export (preprint version) and its QA PDF. Superseded drafts and authoring changelogs were removed from the release and remain recoverable from Git history.
+The v1.2.3 manuscript export and its QA PDF were removed from the current tree because the manuscript has since been substantially revised. Both files remain available in the Zenodo v1.2.3 archive ([10.5281/zenodo.21842032](https://doi.org/10.5281/zenodo.21842032)) and in Git history.
 
-Canonical files:
-
-- `Leakage_Aware_SMO_SVM_Manuscript_JBI_v1.2.3.docx`
-- `Leakage_Aware_SMO_SVM_Manuscript_JBI_v1.2.3_QA.pdf`
-
-The manuscript, repository metadata, figures, supplements, and Zenodo release must all carry the same results, author order, and version-specific DOI.
+The revised manuscript is not included in this repository.
