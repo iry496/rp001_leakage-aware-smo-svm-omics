@@ -2,11 +2,12 @@
 
 ## Unreleased — 2026-09-24
 
-Repository landing-page update. No code, data, results, manuscript files, or releases changed.
+Repository landing-page and manuscript-folder update. No code, data, results, or releases changed.
 
 - Removed the target-journal and article-type statements from the README.
 - Replaced "submission-aligned" wording in the README and `manuscript/README.md` with references to the archived v1.2.3 preprint.
 - Added a status note that a revised version is not yet included and will be added and archived under a new Zenodo DOI upon acceptance.
+- Removed the v1.2.3 manuscript export (DOCX) and its QA PDF from `manuscript/` because the manuscript has since been substantially revised; both remain in the Zenodo v1.2.3 archive and in Git history.
 
 ## 1.2.3 — 2026-08-07
 
